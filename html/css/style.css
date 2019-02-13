@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	font-family: 'Montserrat', sans-serif;
 	line-height: 1;
+	background-color: #edeef3;
 }
 
 input, select, textarea, button {
@@ -60,6 +61,15 @@ table {
 *:active,
 *:focus {
 	outline: none;
+}
+
+.clearfix::after,
+.table::after,
+.t-header::after,
+.t-row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 /* Login */
@@ -188,4 +198,255 @@ body.login {
 }
 .login-box form input[type="password"]:-moz-placeholder { /* Firefox 18- */
   font-weight: 500;
+}
+
+/* Menu Interface */
+.side-menu {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20%;
+	height: 100%;
+	background-color: #0f8067;
+}
+
+.main-content {
+	float: right;
+	width: 80%;
+}
+
+
+.logo-container img { 
+	display: block;
+	width: 240px;
+	max-width: 100%;
+	margin: 20px auto 50px;
+}
+
+.navigation ul  {
+
+}
+
+.navigation ul li {
+	padding: 30px 40px;
+	font-size: 20px;
+	font-weight: 500;
+	color: #fff;
+	cursor: pointer;
+	background-color: transparent;
+	transition: background-color .2s ease;
+}
+
+.navigation ul li:hover,
+.navigation ul li.active {
+	background-color: #094437;
+}
+
+.navigation ul li span  {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.navigation ul li img {
+	display: inline-block;
+	margin-right: 8px;
+	vertical-align: middle;
+}
+
+.user-header {
+	position: relative;
+	width: 100%;
+	min-height: 80px;
+	background-color: #fff;
+}
+
+.menu-icon {
+	position: absolute;
+	top: 50%;
+	left: 22px;
+	width: 30px;
+	margin-top: -15px;
+	cursor: pointer;
+}
+
+.menu-icon span {
+	display: block;
+	width: 100%;
+	height: 2px;
+	margin-bottom: 8px;
+	background-color: #7a8399;
+}
+
+.user-tools {
+	float: right;
+	padding-top: 20px;
+	padding-right: 40px;
+	padding-bottom: 20px;
+}
+
+.messages-notifications {
+	position: relative;
+	float: left;
+	width: 21px;
+	height: 18px;
+	margin-top: 3px;
+	margin-right: 18px;
+	background-image: url(../img/mail-icon.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.messages-notifications span {
+	position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 18px;
+    height: 18px;
+    padding: 4px;
+    font-size: 12px;
+    background-color: #0f8067;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.global-notifications {
+	position: relative;
+	float: left;
+	width: 16px;
+	height: 21px;
+	background-image: url(../img/notification-icon.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.user-info {
+	float: left;
+	margin-left: 20px;
+	text-align: right;
+}
+
+.user-details {
+	float: left;
+	line-height: 1.2;
+	color: #0f8067;
+}
+
+.user-details span {
+	display: block;
+}
+
+.user-details strong {
+	font-weight: bold;
+}
+
+.avatar {
+	float: left;
+    width: 45px;
+    height: 45px;
+    margin-top: -2px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #0f8067;
+    border-radius: 50%;
+}
+
+.logout {
+	position: relative;
+	top: 12px;
+	padding: 8px 18px;
+	font-size: 12px;
+	color: #fff;
+	background-color: #0f8067;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 20px; 
+}
+
+.main-container {
+	padding: 30px 40px;
+}
+
+/* Components */
+
+.table {
+	width: 100%;
+	background-color: #fff;
+}
+
+.filter {
+	padding: 20px 20px;
+}
+
+.filter select {
+	min-width: 140px;
+	padding: 5px 10px;
+	border: 2px solid #cccccc;
+	margin-right: 10px;
+	text-align: center;
+	font-size: 14px;
+	background: transparent;
+	color: #464b5a;
+	border-radius: 4px;
+}
+
+.t-header {	
+	border-top: 1px solid #edeef3;
+	border-bottom: 1px solid #edeef3;
+	background-color: #fcfcfc;
+}
+
+.t-row {
+	border-bottom: 1px solid #edeef3;
+}
+
+.t-row.alt {
+	background-color: #fcfcfc;
+}
+
+.t-col {
+	float: left;
+	width: 16.66%;
+	padding-top: 30px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 30px;	
+	text-transform: uppercase;
+	text-align: center;
+	color: #464b5a;
+}
+
+.t-header .t-col {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: 14px;
+	font-weight: 500;
+	color: #0f8067;
+	text-align: left;
+}
+
+.active {
+	color: #0f8067;
+}
+
+.not-active {
+	color: #d30a0a;
+}
+
+.actions {
+	display: inline-block;
+    width: 30px;
+    height: 28px;
+    margin: 0 10px; 
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.action-pdf {
+	background-image: url(../img/pdf-icon.png);
+}
+
+.action-xml {
+	background-image: url(../img/xml-icon.png);
 }
