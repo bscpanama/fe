@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Invoice test</title>
+</head>
+<body>
+<style>
+	/* http://meyerweb.com/eric/tools/css/reset/
+	   v2.0 | 20110126
+	   License: none (public domain)
+	*/
+
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed,
+	figure, figcaption, footer, header, hgroup,
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline;
+	}
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure,
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	body {
+		font-family: 'Calibri', sans-serif;
+		line-height: 1;
+		background-color: #edeef3;
+	}
+
+	ol, ul {
+		list-style: none;
+	}
+	blockquote, q {
+		quotes: none;
+	}
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+	}
+
+	table {
+		border-spacing: 0;
+		border-color: #000;
+	}
+
+	th, td {
+	  border: 1px solid black;
+	}
+	* {
+		box-sizing: border-box;
+	}
+
+	#page {
+	  background: white;
+	  display: block;
+	  width: 21.6cm;
+	  height: 27.9cm;
+	  margin: 0 auto;
+	  margin-bottom: 0.5cm;
+	  padding: 2cm 1cm 3cm; 
+	  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+	}
+
+	#client-logo {
+		display: inline-block;
+		width: 6cm;
+		height: 6cm;
+		border: 0.05cm solid #dbdbdb;
+		margin-right: 0.4cm;
+		margin-bottom: 0.2cm;
+		vertical-align: top;
+	}
+
+	#client-logo p {
+		font-size: 9pt;
+		margin-top: 2.8cm;
+		text-align: center;
+	}
+
+	#client-info {
+	    display: inline-block;
+	    width: 6.58cm;
+	    vertical-align: top;
+	    font-size: 10pt;
+	}
+
+	#f-phrase {
+		font-size: 9pt;
+		margin-top: 0.2cm;
+		margin-bottom: 0.5cm;
+		text-align: center;
+	}
+
+	#e-data {
+		line-height: 1.6;
+		margin-bottom: 1.5cm;
+	}
+
+	#e-data span,
+	#c-data span  {
+		display: block;
+	}
+
+	#c-data {
+		font-size: 9pt;
+		line-height: 1.6;
+	}
+
+	#c-data span:last-child {
+		font-size: 9pt;
+	}
+
+	#qr-code {
+		display: inline-block;
+		width: 6cm;
+		height: 6cm;
+		border: 0.05cm solid #000;
+		margin-left: 0.4cm;
+		margin-bottom: 0.2cm;
+		background-color: #000;
+		vertical-align: top;
+	}
+
+	#invoice-info {
+		display: inline-block;
+		width: 8.8cm;
+		margin-bottom: 0.4cm;
+		font-size: 10pt;
+		line-height: 1.5;
+		vertical-align: top;
+	}
+
+	#number span:first-child {
+		margin-left: 0.5cm;
+	}
+
+	#number span:last-child {
+		margin-left: 1.5cm;
+	}
+
+	#extra {
+		display: inline-block;
+		width: 10.68cm;
+		margin-bottom: 0.4cm;
+		font-size: 9pt;
+		line-height: 1.5;
+		vertical-align: top;
+		text-align: center;
+	}
+
+	#extra span {
+		display: block;
+	}
+
+	#table-content table {
+		width: 100%;
+	    border-collapse: collapse;
+	}
+
+	#table-content th,
+	#table-content td {
+		font-size: 9pt;
+		padding-top: 0.05cm;
+		padding-left: 0.05cm;
+		padding-right: 0.05cm;
+		padding-bottom: 0.05cm;
+	}	
+
+	#table-content tfoot td:first-child {
+		border: none;
+	}
+
+	#table-content {
+		
+	}
+
+	#invoice-comments {
+		width: 100%;
+		height: 5cm;
+	    border: 0.05cm solid #dbdbdb;
+	    margin-top: 0.4cm;
+	}
+
+	#invoice-comments p {
+		font-size: 9pt;
+		margin-top: 2.4cm;
+		text-align: center;
+	}
+
+</style>
+	<div id="page">
+	 	<div id="top">
+	 		<div id="client-logo">
+	 			<p>Espacio para el logo del emisor</p>
+	 		</div>
+	 		<div id="client-info">
+	 			<div id="f-phrase">Comprobante Impreso de Factura Electr&oacute;nica</div>
+	 			<div id="e-data">
+	 				<span>Raz&oacute;n social del emisor</span>
+	 				<span>RUC del Emisor</span>
+	 				<span>Direcci&oacute;n Emisor</span>
+	 			</div>
+	 			<div id="c-data">
+	 				<span>Cliente: [nombre/raz&oacute;n social del cliente]</span>
+	 				<span>RUC/CI: [RUC/C&eacute;dula del cliente]</span>
+	 				<span>Direcci&oacute;n Cliente</span>
+	 			</div>
+	 		</div>
+	 		<div id="qr-code">
+	 			
+	 		</div>
+	 	</div>
+	 	<div id="invoice-data">
+	 		<div id="invoice-info">
+	 			<div id="number">N&uacute;mero <span>000000000</span> <span>Serie 000</span></div>
+	 			<div id="date">Fecha de emisi&oacute;n</div>
+	 			<div id="pagenumb">Hoja 0 de 0</div>
+	 		</div>
+	 		<div id="extra">
+	 			<span>Consulte por la clave de acceso en http://fe.dgi.mef.pa/consulta:</span>
+	 			<span>00000 00000 00000 00000 00000 00000 00000 00000 00000 00000 00000 000</span>
+	 			<span>Protocolo de autorizaci&oacute;n: 0000000000, de dd/mm/aaaa hh:mm:ss </span>
+	 		</div>
+	 	</div>
+	 	<div id="table-content">
+	 		<table border="1">
+	 			<thead>
+	 				<tr>
+	 					<th width="10%" align="left">C&oacute;digo</th>
+	 					<th width="40%" align="left">Descripci&oacute;n</th>
+	 					<th width="10%" align="right">Unid</th>
+	 					<th width="10%" align="right">Vlr Unit</th>
+	 					<th width="10%" align="right">Cantidad</th>
+	 					<th width="10%" align="right">ITBMS</th>
+	 					<th width="10%" align="right">Vlr Item</th>
+	 				</tr>
+	 			</thead>
+	 			<tbody>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 				<tr>
+	 					<td width="10%">&nbsp;</td>
+	 					<td width="40%"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 					<td width="10%" align="right"></td>
+	 				</tr>
+	 			</tbody>
+	 			<tfoot>
+	 				<tr>
+	 					<td colspan="4" align="right">Suma</td>
+	 					<td></td>
+	 					<td></td>
+	 					<td></td>
+	 				</tr>
+	 				<tr>
+	 					<td colspan="6" align="right">Descuento</td>
+	 					<td></td>
+	 				</tr>
+	 				<tr>
+	 					<td colspan="6" align="right">Valor pago</td>
+	 					<td></td>
+	 				</tr>
+	 				<tr>
+	 					<td colspan="6" align="right">Forma de pago: xxxxxxxx</td>
+	 					<td></td>
+	 				</tr>
+	 				<tr>
+	 					<td colspan="6" align="right">Vuelto</td>
+	 					<td></td>
+	 				</tr>
+	 			</tfoot>
+	 		</table>
+	 	</div>
+	 	<div id="invoice-comments">
+	 		<p>Espacio libre para mensajes promocionales del emisor para el receptor</p>
+	 	</div>
+	</div>
+</body>
+</html>
