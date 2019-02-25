@@ -8,12 +8,13 @@ import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import App from './components/App';
 import Welcome from './components/Welcome';
-import Feature from './components/Feature';
-import SignUp from './components/auth/Signup';
+import Dashboard from './components/Dashboard';
+import Estadistica from './components/Estadistica';
+import Movimientos from './components/Movimientos';
+import Usuarios from './components/Usuarios';
+import Ajustes from './components/Ajustes';
 import SignIn from './components/auth/Signin';
 import SignOut from './components/auth/Signout';
-import Exchanges from './components/clients/Exchanges.js';
-import AddExchange from './components/clients/AddExchange.js';
 
 const store = createStore(
   reducers,
@@ -27,13 +28,13 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <App>
-        <Route path="/" exact component={Welcome} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/feature" component={Feature} />
+        <Route path="/" exact component={SignIn} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/movimientos" component={Movimientos} />
+        <Route path="/usuarios" component={Usuarios} />
+        <Route path="/estadisticas" component={Estadistica} />
+        <Route path="/ajustes" component={Ajustes} />
         <Route path="/signout" component={SignOut} />
-        <Route path="/my-exchanges" component={Exchanges} />
-        <Route path="/add-exchange" component={AddExchange} />
       </App>
     </BrowserRouter>
   </Provider>,

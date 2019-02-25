@@ -4,12 +4,31 @@ import { Link } from 'react-router-dom';
 class Header extends Component {
   render() {
     return (
-      <div>
-        <Link to="/">Redux Auth</Link>
-        <Link to="/signup">Sign up</Link>
-        <Link to="/signin">Sign in</Link>
-        <Link to="/signout">Sign out</Link>
-        <Link to="/feature">Feature</Link>
+      <div className="user-header">
+          <div className="menu-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+          </div>
+          <div className="user-tools">
+              <div className="messages-notifications">
+              </div>
+              <div className="global-notifications">
+                  <span></span>
+              </div>
+              <div className="user-info">
+                  <div className="user-details">
+                      <span>Luis Bolaños</span>
+                      <strong>Administrador</strong>
+                  </div>
+                  <div className="avatar">
+                      
+                  </div>
+              </div>
+              <div className="logout">
+              <Link to="/signout">Cerrar Sesión</Link>
+              </div>
+          </div>
       </div>
     );
   }
