@@ -37,7 +37,7 @@ class Movimientos extends Component {
                 <span className={ invoice.attributes.status == 'ACTIVO' ? 'active' : 'not-active' } >{ invoice.attributes.status }</span>
             </div>
             <div className="t-col">
-                <a className="action-pdf actions" href={'/pdf/'+invoice.id} ></a>
+                <a className="action-pdf actions" href={'/pdfs/'+invoice.id} ></a>
                 <a className="action-xml actions" href="#" ></a>
             </div>
       </div>
