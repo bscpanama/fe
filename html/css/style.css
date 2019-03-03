@@ -494,3 +494,40 @@ body.login {
 	margin-left: 5px;
 	vertical-align: middle;
 }
+
+/* Stats */
+.stats-wrapper {
+	padding: 10px;
+	background-color: #fff;
+}
+
+.stats-options {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #0f8067;
+}
+
+.stats-options .title {
+	display: inline-block;
+	text-transform: uppercase;
+	color: #0f8067;
+}
+
+.stats-options .choice-options {
+	display: inline-block;
+	padding-left: 15px;
+}
+
+.stats-options .choice-options li {
+	display: inline-block;
+	text-transform: uppercase;
+	padding-left: 8px;
+	padding-right: 6px;
+	border-left: 1px solid #0f8067;
+	text-align: center;
+	cursor: pointer;
+}
+
+.stats-options .choice-options li span.active {
+	font-weight: bold;
+}

@@ -1,21 +1,55 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import requireAuth from './requireAuth';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
+import { loadInvoices } from '../actions/index.js';
 
 class Movimientos extends Component {
+    constructor(props) {
+        super(props);
+    }
+
 	componentDidMount() {
 	    document.title = "BS&C - Movimientos";
 	    document.body.classList.remove('login');
+        this.props.loadInvoices();
 	}
+
+    renderTable(invoice, index) {
+    return (
+      <div className="t-row" key={index}>
+            <div className="t-col">
+                    { invoice.attributes.cliente }
+            </div>
+            <div className="t-col">
+                { invoice.attributes.numero_factura }
+            </div>
+            <div className="t-col">
+                { invoice.attributes.tipo_documento == '01' ? 'Factura' : 'Documento' }
+            </div>
+            <div className="t-col">
+                { invoice.attributes.fecha_de_emision }
+            </div>
+            <div className="t-col">
+                <span className={ invoice.attributes.status == 'ACTIVO' ? 'active' : 'not-active' } >{ invoice.attributes.status }</span>
+            </div>
+            <div className="t-col">
+                <a className="action-pdf actions" href={'/pdf/'+invoice.id} ></a>
+                <a className="action-xml actions" href="#" ></a>
+            </div>
+      </div>
+    );
+  }
 
   render(){
     return (
     	<div>
         	<Sidebar />
         	<div className="main-content">
-        		<Header/>             
+        		<Header/>
         		<div className="main-container">
                     <div className="clearfix">
                         <div className="table">
@@ -29,94 +63,42 @@ class Movimientos extends Component {
                             </div>
                             <div className="t-header">
                                 <div className="t-col">
-                                    Usuario                       
+                                    Usuario
                                 </div>
                                 <div className="t-col">
-                                    N&deg; de Factura                       
+                                    N&deg; de Factura
                                 </div>
                                 <div className="t-col">
-                                    Tipo                      
+                                    Tipo
                                 </div>
                                 <div className="t-col">
-                                    Date                       
+                                    Date
                                 </div>
                                 <div className="t-col">
-                                    Estatus                       
+                                    Estatus
                                 </div>
                                 <div className="t-col">
-                                    Descarga                    
+                                    Descarga
                                 </div>
                             </div>
-                            <div className="t-row">
-                                <div className="t-col">
-                                    EMPRESA A                      
-                                </div>
-                                <div className="t-col">
-                                    72420502                        
-                                </div>
-                                <div className="t-col">
-                                    Factura                       
-                                </div>
-                                <div className="t-col">
-                                    17/02/2017                       
-                                </div>
-                                <div className="t-col">
-                                    <span className="active">Activo</span>                        
-                                </div>
-                                <div className="t-col">
-                                    <div className="action-pdf actions"></div>
-                                    <div className="action-xml actions"></div>                    
-                                </div>
-                            </div>
-                            <div className="t-row alt">
-                                <div className="t-col">
-                                    EMPRESA B                      
-                                </div>
-                                <div className="t-col">
-                                    72420502                        
-                                </div>
-                                <div className="t-col">
-                                    Factura                       
-                                </div>
-                                <div className="t-col">
-                                    17/02/2017                       
-                                </div>
-                                <div className="t-col">
-                                    <span className="active">Activo</span>                     
-                                </div>
-                                <div className="t-col">
-                                    <div className="action-pdf actions"></div>
-                                    <div className="action-xml actions"></div>                    
-                                </div>
-                            </div>
-                            <div className="t-row">
-                                <div className="t-col">
-                                    EMPRESA C                      
-                                </div>
-                                <div className="t-col">
-                                    72420502                        
-                                </div>
-                                <div className="t-col">
-                                    Factura                       
-                                </div>
-                                <div className="t-col">
-                                    17/02/2017                       
-                                </div>
-                                <div className="t-col">
-                                    <span className="not-active">Anulado</span>                        
-                                </div>
-                                <div className="t-col">
-                                    <div className="action-pdf actions"></div>
-                                    <div className="action-xml actions"></div>                    
-                                </div>
-                            </div>
+                            { this.props.invoices.data ? this.props.invoices.data.map(this.renderTable) : <div>Cargando</div> }
+                            
                         </div>
                     </div>
                 </div>
             </div>
-        </div>     	    
+        </div>
     );
   }
 }
 
-export default requireAuth(Movimientos);
+function mapStateToProps({ movements }) {
+    const { invoices } = movements;
+    return { invoices };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ loadInvoices }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(requireAuth(Movimientos));

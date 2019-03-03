@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>BS&C - Dashboard</title>
+  </head>
+  <body>
+        <div class="side-menu">
+            <div class="logo-container">
+                <img src="img/logo.png" alt="Logo" />
+            </div>
+            <div class="navigation">
+                <ul>
+                    <li class="active">
+                        <span class="icon">
+                            <img src="img/inicio-icon.png" alt="Inicio" />
+                        </span>
+                        Inicio
+                    </li>
+                    <li>
+                        <span class="icon">
+                            <img src="img/estadistica-icon.png" alt="Estadísticas" />
+                        </span>
+                        Estadísticas
+                    </li>
+                    <li>
+                        <span class="icon">
+                            <img src="img/mov-icon.png" alt="Movimientos" />
+                        </span>
+                        Movimientos
+                    </li>
+                    <li>
+                        <span class="icon">
+                            <img src="img/usuario-icon.png" alt="Usuarios" />
+                        </span>
+                        Usuarios
+                    </li>
+                    <li>
+                        <span class="icon">
+                            <img src="img/settings-icon.png" alt="Ajustes" />
+                        </span>
+                        Ajustes
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-content"> 
+            <div class="user-header">
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="user-tools">
+                    <div class="messages-notifications">
+                        <span>5</span>
+                    </div>
+                    <div class="global-notifications">
+                        <span></span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-details">
+                            <span>Luis Bolaños</span>
+                            <strong>Administrador</strong>
+                        </div>
+                        <div class="avatar">
+                            
+                        </div>
+                    </div>
+                    <a href="#" class="logout">Cerrar Sesión</a>
+                </div>
+            </div>
+            <div class="main-container">
+                <div class="stats-wrapper">
+                    <div class="stats-options">
+                        <div class="title">Estadísticas</div>
+                        <ul class="choice-options">
+                            <li><span>Hoy</span></li>
+                            <li><span>Semanal</span></li>
+                            <li><span class="active">Mensual</span></li>
+                        </ul>
+                    </div>
+                    <canvas id="myChart" width="400" height="200"></canvas>
+                </div>
+            </div>            
+        </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'],
+            datasets: [{
+                label: 'Facturas',
+                data: [15, 25, 50, 52, 49, 54, 16, 45, 55, 50, 45, 37],
+                backgroundColor: 'rgb(15, 128, 103)',
+                borderWidth: 0
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            },
+            title: {
+                display: true
+            }
+        }
+    });
+    </script>
+  </body>
+</html>

@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div className="user-header">
@@ -18,8 +23,8 @@ class Header extends Component {
               </div>
               <div className="user-info">
                   <div className="user-details">
-                      <span>Luis Bolaños</span>
-                      <strong>Administrador</strong>
+                      <span>{this.props.auth.authenticaded.user_name}</span>
+                      <strong>{this.props.auth.authenticaded.user_type}</strong>
                   </div>
                   <div className="avatar">
                       
@@ -34,4 +39,9 @@ class Header extends Component {
   }
 }
 
-export default Header;
+function mapStateToProps({ auth }) {
+    console.log(auth);
+    return { auth };
+}
+
+export default connect(mapStateToProps)(Header);

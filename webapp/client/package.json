@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "chart.js": "^2.7.3",
     "react": "^16.4.1",
+    "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.4.1",
     "react-inlinesvg": "^0.8.1",
     "react-redux": "^5.0.7",
