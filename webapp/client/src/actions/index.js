@@ -112,6 +112,7 @@ export const loadUsers = () => async dispatch => {
       type: LOAD_USERS,
       payload: response.data
     });
+    console.log(response.data);
   } catch (e) {
     console.log(e);
     /*dispatch({

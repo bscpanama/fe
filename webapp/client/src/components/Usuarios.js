@@ -13,27 +13,27 @@ class Usuarios extends Component {
 	componentDidMount() {
 	    document.title = "BS&C - Usuarios";
 	    document.body.classList.remove('login');
+
+        this.props.loadUsers();
 	}
 
-    renderTable(invoice, index) {
+    renderTable(user, index) {
         return (
           <div className="t-row" key={index}>
                 <div className="t-col">
-                        { invoice.attributes.cliente }
+                        { user.attributes.email }
                 </div>
                 <div className="t-col">
-                    { invoice.attributes.numero_factura }
+                    { user.attributes.account ? user.attributes.account.name : ''}
                 </div>
                 <div className="t-col">
-                    { invoice.attributes.tipo_documento == '01' ? 'Factura' : 'Documento' }
+                    { user.attributes.account ? user.attributes.account.last_name : ''}
                 </div>
                 <div className="t-col">
-                    { invoice.attributes.fecha_de_emision }
+                    Company Placeholder
                 </div>
                 <div className="t-col">
-                    <span className={ invoice.attributes.status == 'ACTIVO' ? 'active' : 'not-active' } >{ invoice.attributes.status }</span>
-                    <div className="action-edit actions"></div>
-                    <div className="action-delete actions"></div>
+                   <span class="active">ACTIVO</span>
                 </div>
           </div>
         );
@@ -73,7 +73,7 @@ class Usuarios extends Component {
                                     Estatus
                                 </div>
                             </div>
-                            { this.props.invoices.data ? this.props.invoices.data.map(this.renderTable, this) : <div>Cargando</div> }
+                            { this.props.users.data ? this.props.users.data.map(this.renderTable, this) : <div>Cargando</div> }
                             
                         </div>
                     </div>
@@ -86,8 +86,8 @@ class Usuarios extends Component {
 
 
 function mapStateToProps({ movements }) {
-    const { invoices } = movements;
-    return { invoices };
+    const { users } = movements;
+    return { users };
 }
 
 function mapDispatchToProps(dispatch) {

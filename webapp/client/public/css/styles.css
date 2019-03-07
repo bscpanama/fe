@@ -434,6 +434,10 @@ body.login {
 	color: #464b5a;
 }
 
+.table.table-users .t-col {
+	width: 20%;
+}
+
 .t-header .t-col {
 	padding-top: 20px;
 	padding-bottom: 20px;
