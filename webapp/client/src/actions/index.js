@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, LOAD_INVOICES, LOAD_STATS } from './types';
+import { AUTH_USER, AUTH_ERROR, LOAD_INVOICES, LOAD_STATS, LOAD_USERS } from './types';
 
 export const signup = ({ name, email, password }, callback) => async dispatch => {
   const url = `http://factura.nanoapp.io/signup?email=${email}&password=${password}&password_confirmation=${password}`;
@@ -86,6 +86,30 @@ export const loadStats = (query) => async dispatch => {
     const response = await axios.get(url, config);
     dispatch({
       type: LOAD_STATS,
+      payload: response.data
+    });
+  } catch (e) {
+    console.log(e);
+    /*dispatch({
+      type: AUTH_ERROR,
+      payload: e.data.message
+    });*/
+  }
+};
+
+export const loadUsers = () => async dispatch => {
+  const url = 'http://factura.nanoapp.io/user_accounts';
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      'Authorization': token,
+      'Accept': 'application/vnd.factura.v1+json',
+    }
+  }
+  try {
+    const response = await axios.get(url, config);
+    dispatch({
+      type: LOAD_USERS,
       payload: response.data
     });
   } catch (e) {

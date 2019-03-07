@@ -4,12 +4,16 @@ import { bindActionCreators } from 'redux';
 import requireAuth from './requireAuth';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import axios from 'axios';
+import fileDownload from 'js-file-download';
 
 import { loadInvoices } from '../actions/index.js';
 
 class Movimientos extends Component {
     constructor(props) {
         super(props);
+
+        this.downloadPDF = this.downloadPDF.bind(this);
     }
 
 	componentDidMount() {
@@ -17,6 +21,24 @@ class Movimientos extends Component {
 	    document.body.classList.remove('login');
         this.props.loadInvoices();
 	}
+
+    downloadPDF(invoiceId) {
+        const url = `http://factura.nanoapp.io/pdfs/${invoiceId}`;
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+              'Authorization': token,
+              'Accept': 'application/vnd.factura.v1+json',
+            }
+        };
+        axios.get(url, config)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
 
     renderTable(invoice, index) {
     return (
@@ -37,8 +59,8 @@ class Movimientos extends Component {
                 <span className={ invoice.attributes.status == 'ACTIVO' ? 'active' : 'not-active' } >{ invoice.attributes.status }</span>
             </div>
             <div className="t-col">
-                <a className="action-pdf actions" href={'/pdfs/'+invoice.id} ></a>
-                <a className="action-xml actions" href="#" ></a>
+                <div className="action-pdf actions" onClick={() => this.downloadPDF(invoice.id)}></div>
+                <div className="action-xml actions"></div>
             </div>
       </div>
     );
@@ -81,7 +103,7 @@ class Movimientos extends Component {
                                     Descarga
                                 </div>
                             </div>
-                            { this.props.invoices.data ? this.props.invoices.data.map(this.renderTable) : <div>Cargando</div> }
+                            { this.props.invoices.data ? this.props.invoices.data.map(this.renderTable, this) : <div>Cargando</div> }
                             
                         </div>
                     </div>
