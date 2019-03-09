@@ -1,8 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 
 class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  showUsers() {
+    return(
+        <li>
+            <Link to="/usuarios">
+            <span className="icon">
+                <img src="/assets/usuario-icon.png" alt="Usuarios" />
+            </span>
+            Usuarios
+            </Link>
+        </li>
+    );
+  }
+
   render() {
     return (
       <div className="side-menu">
@@ -35,14 +53,7 @@ class Sidebar extends Component {
                         Movimientos
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/usuarios">
-                        <span className="icon">
-                            <img src="/assets/usuario-icon.png" alt="Usuarios" />
-                        </span>
-                        Usuarios
-                        </Link>
-                    </li>
+                    { this.props.auth.authenticaded.user_type == 'Admin' ? this.showUsers() : '' }
                     <li>
                         <Link to="/ajustes">
                         <span className="icon">
@@ -58,4 +69,9 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+function mapStateToProps({ auth }) {
+    console.log(auth);
+    return { auth };
+}
+
+export default connect(mapStateToProps)(Sidebar);

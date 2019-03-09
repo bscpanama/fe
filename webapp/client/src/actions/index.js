@@ -27,7 +27,6 @@ export const signin = ({ email, password }, callback) => async dispatch => {
       type: AUTH_USER,
       payload: response.data
     });
-    console.log(response.data);
     localStorage.setItem('token', response.data.auth_token);
     callback();
   } catch (e) {
@@ -63,7 +62,6 @@ export const loadInvoices = () => async dispatch => {
       type: LOAD_INVOICES,
       payload: response.data
     });
-    console.log(response.data);
   } catch (e) {
     console.log(e);
     /*dispatch({
@@ -112,7 +110,6 @@ export const loadUsers = () => async dispatch => {
       type: LOAD_USERS,
       payload: response.data
     });
-    console.log(response.data);
   } catch (e) {
     console.log(e);
     /*dispatch({

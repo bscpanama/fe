@@ -23,8 +23,8 @@ class Header extends Component {
               </div>
               <div className="user-info">
                   <div className="user-details">
-                      <span>{this.props.auth.authenticaded.user_name}</span>
-                      <strong>{this.props.auth.authenticaded.user_type}</strong>
+                      <span>{this.props.auth ? this.props.auth.authenticaded.user_name : 'Guest'}</span>
+                      <strong>{this.props.auth ? this.props.auth.authenticaded.user_type : 'guest'}</strong>
                   </div>
                   <div className="avatar">
                       
@@ -40,7 +40,6 @@ class Header extends Component {
 }
 
 function mapStateToProps({ auth }) {
-    console.log(auth);
     return { auth };
 }
 
