@@ -216,11 +216,19 @@ body.login {
 	background-color: #0f8067;
 }
 
+.side-menu.closed {
+	width: 0;
+	overflow: hidden;
+}
+
 .main-content {
 	float: right;
 	width: 80%;
 }
 
+.main-content.closed {
+	width: 100%;
+}
 
 .logo-container img { 
 	display: block;
@@ -353,7 +361,7 @@ body.login {
 }
 
 .avatar {
-	float: left;
+    float: left;
     width: 45px;
     height: 45px;
     margin-top: -2px;
@@ -361,6 +369,10 @@ body.login {
     margin-right: 10px;
     background-color: #0f8067;
     border-radius: 50%;
+    background-image: url(../assets/user-favicon.png);
+    background-size: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 

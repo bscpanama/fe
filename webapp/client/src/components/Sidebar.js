@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+
+import { loadInvoices } from '../actions/index.js';
 
 
 class Sidebar extends Component {
@@ -23,7 +26,7 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className="side-menu">
+      <div className={'side-menu '+ this.props.menustatus}>
             <div className="logo-container">
                 <img src="/assets/logo.png" alt="Logo" />
             </div>
@@ -69,9 +72,9 @@ class Sidebar extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-    console.log(auth);
-    return { auth };
+function mapStateToProps({ auth, movements }) {
+    const { menustatus } = movements;
+    return { auth, menustatus };
 }
 
 export default connect(mapStateToProps)(Sidebar);

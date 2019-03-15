@@ -46,7 +46,7 @@ class Dashboard extends Component {
     return (
     	<div>
     	<Sidebar />
-    	<div className="main-content">
+    	<div className={'main-content ' + this.props.menustatus}>
     		<Header/>             
     		<div className="main-container">
             <div className="clearfix">
@@ -91,8 +91,8 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps({ movements }) {
-    const { stats } = movements;
-    return { stats };
+    const { stats, menustatus } = movements;
+    return { stats, menustatus };
 }
 
 function mapDispatchToProps(dispatch) {

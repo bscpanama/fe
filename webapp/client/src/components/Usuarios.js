@@ -43,7 +43,7 @@ class Usuarios extends Component {
     return (
     	<div>
         	<Sidebar />
-        	<div className="main-content">
+        	<div className={'main-content ' + this.props.menustatus}>
         		<Header/>             
         		<div className="main-container">
                     <div className="clearfix">
@@ -86,8 +86,8 @@ class Usuarios extends Component {
 
 
 function mapStateToProps({ movements }) {
-    const { users } = movements;
-    return { users };
+    const { users, menustatus } = movements;
+    return { users, menustatus };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -1,14 +1,16 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, LOAD_INVOICES, LOAD_STATS, LOAD_USERS } from './types';
+import { AUTH_USER, AUTH_ERROR, LOAD_INVOICES, LOAD_STATS, LOAD_USERS, CHANGE_MENU_STATUS } from './types';
+
+const SITE_URL = 'https://factura.nanoapp.io';
 
 export const signup = ({ name, email, password }, callback) => async dispatch => {
-  const url = `http://factura.nanoapp.io/signup?email=${email}&password=${password}&password_confirmation=${password}`;
+  const url = `${SITE_URL}/signup?email=${email}&password=${password}&password_confirmation=${password}`;
   try {
     const response = await axios.post(url);
     dispatch({
       type: AUTH_USER,
       payload: response.data.auth_token
-    });
+    });    
     localStorage.setItem('token', response.data.auth_token);
     callback();
   } catch (e) {
@@ -20,13 +22,14 @@ export const signup = ({ name, email, password }, callback) => async dispatch =>
 };
 
 export const signin = ({ email, password }, callback) => async dispatch => {
-  const url = `http://factura.nanoapp.io/auth/login?email=${email}&password=${password}`;
+  const url = `${SITE_URL}/auth/login?email=${email}&password=${password}`;
   try {
     const response = await axios.post(url);
     dispatch({
       type: AUTH_USER,
       payload: response.data
     });
+    console.log(response.data);
     localStorage.setItem('token', response.data.auth_token);
     callback();
   } catch (e) {
@@ -48,7 +51,7 @@ export const signout = () => {
 };
 
 export const loadInvoices = () => async dispatch => {
-  const url = 'http://factura.nanoapp.io/documents';
+  const url = `${SITE_URL}/documents`;
   const token = localStorage.getItem("token");
   const config = {
     headers: {
@@ -72,7 +75,7 @@ export const loadInvoices = () => async dispatch => {
 };
 
 export const loadStats = (query) => async dispatch => {
-  const url = `http://factura.nanoapp.io/stats?query=${query}`;
+  const url = `${SITE_URL}/stats?query=${query}`;
   const token = localStorage.getItem("token");
   const config = {
     headers: {
@@ -96,7 +99,7 @@ export const loadStats = (query) => async dispatch => {
 };
 
 export const loadUsers = () => async dispatch => {
-  const url = 'http://factura.nanoapp.io/user_accounts';
+  const url = `${SITE_URL}/user_accounts`;
   const token = localStorage.getItem("token");
   const config = {
     headers: {
@@ -117,4 +120,12 @@ export const loadUsers = () => async dispatch => {
       payload: e.data.message
     });*/
   }
+};
+
+export const changeMenuStatus = (status) => dispatch => {
+  const menuStatus = status == 'open' ? 'closed' : 'open';
+  dispatch({
+    type: CHANGE_MENU_STATUS,
+    payload: menuStatus
+  });
 };

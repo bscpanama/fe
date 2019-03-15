@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import requireAuth from './requireAuth';
 import Header from './Header';
 import Sidebar from './Sidebar';
+
 
 
 class Ajustes extends Component {
@@ -14,7 +16,7 @@ class Ajustes extends Component {
     return (
     	<div>
         	<Sidebar />
-        	<div className="main-content">
+        	<div className={'main-content ' + this.props.menustatus}>
         		<Header/>             
         		<div className="main-container">
                     <div className="clearfix">
@@ -27,4 +29,10 @@ class Ajustes extends Component {
   }
 }
 
-export default requireAuth(Ajustes);
+
+function mapStateToProps({ movements }) {
+    const { menustatus } = movements;
+    return { menustatus };
+}
+
+export default connect(mapStateToProps)(requireAuth(Ajustes));

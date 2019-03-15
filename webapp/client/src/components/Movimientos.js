@@ -5,7 +5,6 @@ import requireAuth from './requireAuth';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import axios from 'axios';
-import fileDownload from 'js-file-download';
 
 import { loadInvoices } from '../actions/index.js';
 
@@ -23,7 +22,7 @@ class Movimientos extends Component {
 	}
 
     downloadPDF(invoiceId) {
-        const url = `http://factura.nanoapp.io/pdfs/${invoiceId}`;
+        const url = `https://factura.nanoapp.io/pdfs/${invoiceId}`;
         const token = localStorage.getItem("token");
         const config = {
             headers: {
@@ -33,7 +32,8 @@ class Movimientos extends Component {
         };
         axios.get(url, config)
           .then(function (response) {
-            console.log(response);
+            window.open(response.data.pdf, '_blank')
+            console.log(response.data);
           })
           .catch(function (error) {
             console.log(error);
@@ -70,7 +70,7 @@ class Movimientos extends Component {
     return (
     	<div>
         	<Sidebar />
-        	<div className="main-content">
+        	<div className={'main-content ' + this.props.menustatus}>
         		<Header/>
         		<div className="main-container">
                     <div className="clearfix">
@@ -115,8 +115,8 @@ class Movimientos extends Component {
 }
 
 function mapStateToProps({ movements }) {
-    const { invoices } = movements;
-    return { invoices };
+    const { invoices, menustatus } = movements;
+    return { invoices, menustatus };
 }
 
 function mapDispatchToProps(dispatch) {

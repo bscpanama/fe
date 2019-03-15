@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+
+import { changeMenuStatus } from '../actions/index.js';
 
 class Header extends Component {
   constructor(props) {
@@ -10,17 +13,13 @@ class Header extends Component {
   render() {
     return (
       <div className="user-header">
-          <div className="menu-icon">
+          <div className="menu-icon" onClick={() => this.props.changeMenuStatus(this.props.menustatus) }>
               <span></span>
               <span></span>
               <span></span>
           </div>
           <div className="user-tools">
-              <div className="messages-notifications">
-              </div>
-              <div className="global-notifications">
-                  <span></span>
-              </div>
+              
               <div className="user-info">
                   <div className="user-details">
                       <span>{this.props.auth ? this.props.auth.authenticaded.user_name : 'Guest'}</span>
@@ -39,8 +38,13 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-    return { auth };
+function mapStateToProps({ auth, movements }) {
+    const { menustatus } = movements;
+    return { auth, menustatus };
 }
 
-export default connect(mapStateToProps)(Header);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ changeMenuStatus }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
