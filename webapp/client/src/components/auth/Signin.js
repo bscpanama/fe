@@ -4,6 +4,9 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { Link } from 'react-router-dom';
+import ReCAPTCHA from "react-google-recaptcha";
+
+const RECAPTCHA_SITE_KEY = '6Lf2_ZcUAAAAABPs4V8oHiWZUW1pYQX2qwicFPXT';
 
 class SignIn extends Component {
   componentDidMount() {
@@ -19,7 +22,14 @@ class SignIn extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-
+    const Captcha = (props) => (
+    <div className="recaptcha">
+      <ReCAPTCHA
+        sitekey={RECAPTCHA_SITE_KEY}
+        onChange={props.input.onChange}
+      />
+      </div>
+    );
     return (
       <div>
         <div className="login-box">
@@ -30,8 +40,9 @@ class SignIn extends Component {
             <h2>Bienvenido</h2>
             <Field name="email" type="email" component="input" autoComplete="none" className="email-input" placeholder="Correo Electrónico" />
             <Field name="password" type="password" component="input" autoComplete="none" placeholder="Contraseña" className="password-input" />
-            <a href="#" className="reset-pass-link a-link">¿Olvidaste tu contraseña?</a>
+            <Field name='captcharesponse' component={Captcha}/>
             <input type="submit" name="submit" value="Ingresar" />
+            <a href="#" className="reset-pass-link a-link">¿Olvidaste tu contraseña?</a>
             <div className="error-messages"></div> 
           </form>
         </div>

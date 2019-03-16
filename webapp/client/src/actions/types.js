@@ -4,3 +4,4 @@ export const LOAD_INVOICES = 'load_invoices';
 export const LOAD_STATS = 'load_stats';
 export const LOAD_USERS = 'load_users';
 export const CHANGE_MENU_STATUS = 'change_menu_status';
+export const SUCCESFUL_USER_CREATED = 'succesful_user_created';

@@ -13,6 +13,7 @@ import Dashboard from './components/Dashboard';
 import Estadistica from './components/Estadistica';
 import Movimientos from './components/Movimientos';
 import Usuarios from './components/Usuarios';
+import CreateUser from './components/CreateUser';
 import Ajustes from './components/Ajustes';
 import SignIn from './components/auth/Signin';
 import SignOut from './components/auth/Signout';
@@ -34,6 +35,7 @@ ReactDOM.render(
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/movimientos" component={Movimientos} />
         <Route path="/usuarios" component={Usuarios} />
+        <Route path="/crearusuario" component={CreateUser} />
         <Route path="/estadisticas" component={Estadistica} />
         <Route path="/ajustes" component={Ajustes} />
         <Route path="/signout" component={SignOut} />

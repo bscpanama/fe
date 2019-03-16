@@ -206,6 +206,11 @@ body.login {
   font-weight: 500;
 }
 
+.recaptcha div > div > div {
+	display: block;
+	margin: 0 auto;
+}
+
 /* Menu Interface */
 .side-menu {
 	position: absolute;
