@@ -138,5 +138,5 @@ function mapStateToProps({ movements }) {
 
 export default compose(
   connect(mapStateToProps, actions),
-  reduxForm({ form: 'createUserAcount' })
+  reduxForm({ form: 'createUserAccount' })
 )(requireAuth(CreateUser));

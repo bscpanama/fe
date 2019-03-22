@@ -33,7 +33,7 @@ class Usuarios extends Component {
                     { user.attributes.account ? (user.attributes.account.company ? user.attributes.account.company : 'N/A') : 'N/A'}
                 </div>
                 <div className="t-col">
-                   <span className={user.attributes.account.status == "activo" ? 'active' : 'not-active'}>{ user.attributes.account ? (user.attributes.account.status == "activo" ?'Activo' : 'Inactivo') : ''}</span>
+                   <span className={user.attributes.account.status == "activo" ? 'active' : 'not-active'}>{ user.attributes.account ? (user.attributes.account.status == "activo" ?'Activo' : 'Inactivo') : ''}</span><Link to={'modificarusuario/'+user.id}>editar</Link>
                 </div>
           </div>
         );

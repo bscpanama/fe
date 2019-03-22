@@ -1,9 +1,10 @@
-import { LOAD_INVOICES, LOAD_STATS, LOAD_USERS, CHANGE_MENU_STATUS, SUCCESFUL_USER_CREATED } from '../actions/types';
+import { LOAD_INVOICES, LOAD_STATS, LOAD_USERS, LOAD_USER, CHANGE_MENU_STATUS, SUCCESFUL_USER_CREATED } from '../actions/types';
 
 const INITIAL_STATE = {
   invoices : '',
   stats: '',
   users: '',
+  user: '',
   menustatus: 'open',
   usercreated: ''
 }
@@ -18,6 +19,9 @@ export default function(state = INITIAL_STATE, action) {
       break;
     case LOAD_USERS:
       return { ...state, users: action.payload };
+      break;
+    case LOAD_USER:
+      return { ...state, user: action.payload };
       break;
     case CHANGE_MENU_STATUS:
       return { ...state, menustatus: action.payload };
