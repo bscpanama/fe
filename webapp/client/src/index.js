@@ -4,7 +4,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
-import { CookiesProvider } from 'react-cookie';
 
 import reducers from './reducers';
 import App from './components/App';
@@ -27,7 +26,6 @@ const store = createStore(
 );
 
 ReactDOM.render(
-  <CookiesProvider>
   <Provider store={store}>
     <BrowserRouter>
       <App>
@@ -41,7 +39,6 @@ ReactDOM.render(
         <Route path="/signout" component={SignOut} />
       </App>
     </BrowserRouter>
-  </Provider>
-  </CookiesProvider>,
+  </Provider>,
     document.querySelector('#root')
 );

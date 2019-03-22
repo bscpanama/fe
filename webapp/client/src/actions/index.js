@@ -5,6 +5,16 @@ const SITE_URL = 'https://factura.nanoapp.io';
 
 export const signin = ({ email, password }, callback) => async dispatch => {
   const url = `${SITE_URL}/auth/login?email=${email}&password=${password}`;
+  axios.interceptors.response.use(
+    response => {
+      // do someting on response
+      return response
+    },
+    error => {
+      // do someting on errir
+      return Promise.reject(error.response.data) // => gives me the server resonse
+    }
+  );
   try {
     const response = await axios.post(url);
     dispatch({
@@ -15,11 +25,11 @@ export const signin = ({ email, password }, callback) => async dispatch => {
     localStorage.setItem('token', response.data.auth_token);
     callback();
   } catch (e) {
-    console.log(e);
-    /*dispatch({
+    console.log(e.message);
+    dispatch({
       type: AUTH_ERROR,
-      payload: e.data.message
-    });*/
+      payload: e.message
+    });
   }
 };
 
@@ -126,8 +136,6 @@ export const createUserAcount = (values, callback) => async dispatch => {
     }
 
     formData.append('email',values.email);
-    formData.append('password',values.password);
-    formData.append('password_confirmation',values.confirmpassword);
     formData.append('account_attributes[avatar]',values.avatar);
     formData.append('account_attributes[name]',values.name);
     formData.append('account_attributes[last_name]',values.lastname);

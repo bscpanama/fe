@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import * as actions from '../actions'
 
 
-class CreateUser extends Component {
+class ModifyUser extends Component {
   constructor(props){
     super(props);
     
@@ -20,12 +20,12 @@ class CreateUser extends Component {
   }
 
 	componentDidMount() {
-	    document.title = "BS&C - Crear Usuario";
+	    document.title = "BS&C - Modificar Usuario";
 	    document.body.classList.remove('login');
 	}
 
   onSubmit = formProps => {
-    this.props.createUserAcount(formProps, () => {
+    this.props.ModifyUserAcount(formProps, () => {
       this.props.history.push('/usuarios');
     });
   };
@@ -138,5 +138,5 @@ function mapStateToProps({ movements }) {
 
 export default compose(
   connect(mapStateToProps, actions),
-  reduxForm({ form: 'createUserAcount' })
-)(requireAuth(CreateUser));
+  reduxForm({ form: 'ModifyUserAcount' })
+)(requireAuth(ModifyUser));

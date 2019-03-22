@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import requireAuth from './requireAuth';
 import Header from './Header';
 import Sidebar from './Sidebar';
-
+import { Link } from 'react-router-dom';
 
 import { loadUsers } from '../actions/index.js';
 
@@ -30,10 +30,10 @@ class Usuarios extends Component {
                     { user.attributes.account ? user.attributes.account.last_name : ''}
                 </div>
                 <div className="t-col">
-                    Company Placeholder
+                    { user.attributes.account ? (user.attributes.account.company ? user.attributes.account.company : 'N/A') : 'N/A'}
                 </div>
                 <div className="t-col">
-                   <span class="active">ACTIVO</span>
+                   <span className={user.attributes.account.status == "activo" ? 'active' : 'not-active'}>{ user.attributes.account ? (user.attributes.account.status == "activo" ?'Activo' : 'Inactivo') : ''}</span>
                 </div>
           </div>
         );
@@ -47,6 +47,9 @@ class Usuarios extends Component {
         		<Header/>             
         		<div className="main-container">
                     <div className="clearfix">
+                        <div className="action-button">
+                            <Link to="/crearusuario" >+ Crear Usuario</Link>
+                        </div>
                         <div className="table table-users">
                             <div className="filter">
                                 <select>

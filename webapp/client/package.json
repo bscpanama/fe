@@ -8,7 +8,6 @@
     "js-file-download": "^0.4.4",
     "react": "^16.4.1",
     "react-chartjs-2": "^2.7.4",
-    "react-cookie": "^3.0.8",
     "react-dom": "^16.4.1",
     "react-google-recaptcha": "^1.0.5",
     "react-inlinesvg": "^0.8.1",
