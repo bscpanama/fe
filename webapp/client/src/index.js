@@ -7,7 +7,6 @@ import reduxThunk from 'redux-thunk';
 
 import reducers from './reducers';
 import App from './components/App';
-import Welcome from './components/Welcome';
 import Dashboard from './components/Dashboard';
 import Estadistica from './components/Estadistica';
 import Movimientos from './components/Movimientos';

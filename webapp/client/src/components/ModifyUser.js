@@ -25,17 +25,10 @@ class ModifyUser extends Component {
       
       
       this.props.loadUser(this.props.match.params.id);
-
-      if(this.props.user) {
-         console.log(SITE_URL + this.props.user.attributes.account.avatar_url);
-        this.setState({
-          preview: SITE_URL + this.props.user.attributes.account.avatar_url 
-        });
-      }
 	}
 
   onSubmit = formProps => {
-    this.props.ModifyUserAcount(formProps, () => {
+    this.props.modifyUserAccount(formProps, () => {
       this.props.history.push('/usuarios');
     });
   };
@@ -68,11 +61,18 @@ class ModifyUser extends Component {
     };
   
   render(){
+    let previewImg = '';
+    if(this.props.user.data && this.state.preview == '') {
+      previewImg = SITE_URL + this.props.user.data.attributes.account.avatar_url
+    } else {
+      previewImg = this.state.preview;
+    }
 
     let imagePreview = {
-      backgroundImage: `url(${this.state.preview})`
+      backgroundImage: `url(${previewImg})`
     };
-    console.log(this.props.user);
+
+
     const { handleSubmit } = this.props;
     return (
     	<div>
@@ -152,7 +152,7 @@ function mapStateToProps({ movements }) {
     const { menustatus, user } = movements;
    
     const initialValues = {
-      avatar: user ? user.data.attributes.account.avatar_url : '',
+      id: user ? user.data.id : '',
       email: user ? user.data.attributes.email : '',
       name: user ? user.data.attributes.account.name : '',
       lastname: user ? user.data.attributes.account.last_name : '',
@@ -160,7 +160,8 @@ function mapStateToProps({ movements }) {
       phone: user ? user.data.attributes.account.phone_number : '',
       mobile:  user ? user.data.attributes.account.mobile_number : '',
       plans: user ? user.data.attributes.account.plan_id : 1,
-      status: user ? user.data.attributes.account.status : ''
+      status: user ? user.data.attributes.account.status : '',
+      account_id: user ? user.data.attributes.account.id : ''
     };
 
     return { menustatus, user, initialValues  };

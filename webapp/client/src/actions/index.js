@@ -211,7 +211,9 @@ export const modifyUserAccount = (values, callback) => async dispatch => {
     }
 
     formData.append('email',values.email);
-    formData.append('account_attributes[avatar]',values.avatar);
+    if(values.avatar) {
+      formData.append('account_attributes[avatar]',values.avatar);
+    }
     formData.append('account_attributes[name]',values.name);
     formData.append('account_attributes[last_name]',values.lastname);
     formData.append('account_attributes[mobile_number]',values.mobile);
@@ -219,21 +221,7 @@ export const modifyUserAccount = (values, callback) => async dispatch => {
     formData.append('account_attributes[plan_id]',values.plans);
     formData.append('account_attributes[company]',values.company);
 
-    /*const params = {
-        "email": values.email,
-        "password": values.password,
-        "password_confirmation": values.confirmpassword,
-        "account_attributes": {
-        "avatar": values.avatar,
-        "name": values.name,
-        "last_name": values.lastname,
-        "mobile_number": values.mobile,
-        "phone_number": values.phone,
-        "plan_id": values.plans,
-        "company": values.company
-        }
-    };*/
-    const response = await axios.post(url, formData, config);
+    const response = await axios.put(url, formData, config);
     dispatch({
       type: SUCCESFUL_USER_CREATED,
       payload: response.data
@@ -245,5 +233,6 @@ export const modifyUserAccount = (values, callback) => async dispatch => {
       payload: e.data.message
     });*/
   }
+
   console.log(values);
 };

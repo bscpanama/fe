@@ -6,7 +6,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import axios from 'axios';
 
-import { loadInvoices } from '../actions/index.js';
+import { loadInvoices, SITE_URL } from '../actions/index.js';
 
 class Movimientos extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class Movimientos extends Component {
 	}
 
     downloadPDF(invoiceId) {
-        const url = `https://factura.nanoapp.io/pdfs/${invoiceId}`;
+        const url = `${SITE_URL}/pdfs/${invoiceId}`;
         const token = localStorage.getItem("token");
         const config = {
             headers: {
@@ -56,7 +56,7 @@ class Movimientos extends Component {
                 { invoice.attributes.fecha_de_emision }
             </div>
             <div className="t-col">
-                <span className={ invoice.attributes.status == 'ACTIVO' ? 'active' : 'not-active' } >{ invoice.attributes.status }</span>
+                <span className={ invoice.attributes.status == 'activo' ? 'active' : 'not-active' } >{ invoice.attributes.status }</span>
             </div>
             <div className="t-col">
                 <div className="action-pdf actions" onClick={() => this.downloadPDF(invoice.id)}></div>

@@ -531,3 +531,77 @@ body.login {
 .stats-options .choice-options li span.active {
 	font-weight: bold;
 }
+
+/* Filter */
+
+.filter-box {
+	position: relative;
+	display: inline-block;
+	min-width: 140px;
+    padding: 8px 15px;
+    border: 2px solid #cccccc;
+    margin-top: 10px;
+    margin-right: 10px;
+    text-align: center;
+    font-size: 14px;
+    background-image: url(../img/down-arrow.png);
+    background-repeat: no-repeat;
+    background-position: 94% center;
+    background-size: 10px;
+    color: #464b5a;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-box:before {
+	content: '';
+	position: absolute;
+	top: -15px;
+	left: 0;
+	font-size: 11px;
+	font-weight: bold;
+	color: #999;
+	text-transform: uppercase;
+}
+
+.filter-box.date {
+	padding-right: 25px;
+}
+
+.filter-box.estatus:before {
+	content: 'estatus';
+}
+
+.filter-box.date:before {
+	content: 'fecha';
+}
+
+.filter-box > ul {
+	display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 2px solid #cccccc;
+    border-top: none;
+    margin-top: -1px;
+    margin-left: -2px;
+    margin-right: -2px;
+    background-color: #fff;
+    box-sizing: content-box;
+    border-radius: 0 0 4px 4px;
+}
+
+.filter-box > ul > li {
+	padding: 6px 10px;
+}
+
+.filter-box > ul > li:hover,
+.filter-box > ul > li.active {
+	background-color: #0f8067;
+	color: #fff;
+}
+
+.filter-box:hover > ul {
+	display: block;
+}
