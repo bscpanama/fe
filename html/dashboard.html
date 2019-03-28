@@ -81,20 +81,35 @@
                     <div class="filter">
                         <div class="filter-box estatus">
                             <div class="current-option">Todos</div>
-                            <ul>
-                                <li>Activos</li>
-                                <li>Inactivos</li>
-                                <li class="active">Todos</li>
-                            </ul>
+                            <div class="options-container">
+                                <ul>
+                                    <li>Activos</li>
+                                    <li>Inactivos</li>
+                                    <li class="active">Todos</li>
+                                </ul>
+                            </div>                            
                         </div>
                         <div class="filter-box date">
                             <div class="current-option">Últimos 30 días</div>
-                            <ul>
-                                <li class="active">Últimos 30 días</li>
-                                <li>Últimos 90 días</li>
-                                <li>2019</li>
-                                <li>2018</li>
-                            </ul>
+                            <div class="options-container">
+                                <ul>
+                                    <li class="active">Últimos 30 días</li>
+                                    <li>Últimos 90 días</li>
+                                    <li>2019</li>
+                                    <li>2018</li>
+                                </ul>
+                                <div class="date-range-form">
+                                    <div class="date-wrapper">
+                                    <label>Del</label>   
+                                    <input type="text" name="date-begin" class="date-begin" placeholder="ej. 12/31/2018" />
+                                    </div>
+                                    <div class="date-wrapper">
+                                    <label>Al</label>    
+                                    <input type="text" name="date-end" class="date-end" placeholder="ej. 12/31/2018" />
+                                    </div>
+                                    <button>Enviar</button>
+                                </div>                                
+                            </div>
                         </div>
                     </div>
                     <div class="t-header">
@@ -181,33 +196,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="clearfix">
-                    <div class="activity-table">
-                        <div class="t-header">
-                            <div class="t-col">Últimos Usuarios</div>
-                            <div class="t-col">Actividad</div>
-                            <div class="t-col">Hora</div>
-                            <div class="t-col">Estatus</div>
-                        </div>
-                        <div class="t-row">
-                            <div class="t-col">
-                                <div class="user-comp">
-                                    <div class="avatar-us"></div>
-                                    <div class="user-desc">
-                                        Robert Green
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="t-col">Assessed directly</div>
-                            <div class="t-col">12:00 AM</div>
-                            <div class="t-col"><span class="missed">Missed</span></div>
-                        </div>
-                    </div>
-                    <div class="notification-bar">
-                        <div class="top-head">
-                            
-                        </div>
-                    </div>
+                <div class="pagination">
+                    <span class="prev-pag"><</span> <span class="counter-pages">Página 1 - 3</span> <span class="next-pag">></span>
                 </div>
             </div>
             

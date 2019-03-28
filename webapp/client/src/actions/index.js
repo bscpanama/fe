@@ -42,15 +42,27 @@ export const signout = () => {
   };
 };
 
-export const loadInvoices = () => async dispatch => {
+export const loadInvoices = (values) => async dispatch => {
   const url = `${SITE_URL}/documents`;
   const token = localStorage.getItem("token");
+  let params = {
+    'page' : values.page
+  };
+
+  if(typeof values.status !== 'undefined'){
+    if(values.status != 'todos') {
+      params.by_status = values.status;
+    }
+  }
+
   const config = {
     headers: {
       'Authorization': token,
       'Accept': 'application/vnd.factura.v1+json',
-    }
-  }
+    },
+    params: params
+  };
+
   try {
     const response = await axios.get(url, config);
     dispatch({
