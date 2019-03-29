@@ -60,10 +60,13 @@ class ModifyUser extends Component {
       );
     };
   
+
   render(){
     let previewImg = '';
-    if(this.props.user.data && this.state.preview == '') {
-      previewImg = SITE_URL + this.props.user.data.attributes.account.avatar_url
+    if(typeof this.props.user.data !== 'undefined' && this.state.preview == '') {
+      if(this.props.user.data.attributes.account.avatar_url != null ) {
+        previewImg = SITE_URL + this.props.user.data.attributes.account.avatar_url
+      }
     } else {
       previewImg = this.state.preview;
     }
@@ -159,7 +162,7 @@ function mapStateToProps({ movements }) {
       company: user ? user.data.attributes.account.company : '',
       phone: user ? user.data.attributes.account.phone_number : '',
       mobile:  user ? user.data.attributes.account.mobile_number : '',
-      plans: user ? user.data.attributes.account.plan_id : 1,
+      plans: user ? (user.data.attributes.account.plan_id != null ? user.data.attributes.account.plan_id : 1) : 1,
       status: user ? user.data.attributes.account.status : '',
       account_id: user ? user.data.attributes.account.id : ''
     };

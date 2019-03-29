@@ -28,7 +28,9 @@ class Movimientos extends Component {
             filterEstatusOpen: '',
             filterDateOpen: '',
             currentestatus: 'Todos',
-            currentdate: 'Últimos 30 días'
+            currentdate: 'Últimos 30 días',
+            currentestatusvalue: '',
+            currentdatevalue: ''
         };        
     }
 
@@ -130,23 +132,25 @@ class Movimientos extends Component {
   setFilterEstatus(value, label) {
     this.setState({
         currentestatus: label,
+        currentestatusvalue: value,
         filterEstatusOpen: '',
         currentpage: 1
     });
-    this.props.loadInvoices({page: 1, status: value });
+    this.props.loadInvoices({page: 1, status: value, date: this.state.currentdatevalue });
   }
 
   setFilterDate(value, label) {
     this.setState({
         currentdate: label,
+        currentdatevalue: value,
         filterDateOpen: '',
         currentpage: 1
     });
-
+    this.props.loadInvoices({page: 1, status: this.state.currentestatusvalue, date: value });
   }
 
-  setFilterDateYear() {
-
+  setFilterDateYear(value, label) {
+    
   }
 
   setFilterDateRange() {
