@@ -20,7 +20,7 @@ import SignOut from './components/auth/Signout';
 const store = createStore(
   reducers,
   {
-    auth: { authenticaded: localStorage.getItem('token') }
+    auth: { authenticaded: localStorage.getItem('bsctoken'), user_name:  localStorage.getItem('bscName'), user_type: localStorage.getItem('bscType'), avatar_url: localStorage.getItem('bscAvatar'), user_id: localStorage.getItem('bscID') }
   },
   applyMiddleware(reduxThunk)
 );

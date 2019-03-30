@@ -86,7 +86,7 @@ class ModifyUser extends Component {
                     <div className="clearfix">
                         <form onSubmit={handleSubmit(this.onSubmit)}>
                         <div className="form-container clearfix">
-                        <h3>Nuevo Usuario</h3>
+                        <h3>Modifcar Usuario</h3>
                         <div className="inside-form-container">
                           <div className="form-left">
                             <Field name="avatar" type="file" component={this.FileInput}/>

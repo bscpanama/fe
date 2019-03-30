@@ -592,6 +592,10 @@ body.login {
 	border-top: 1px solid #edeef3;
 }
 
+.form-full {
+	width: 100%;
+}
+
 .form-left {
 	float: left;
 	width: 20%;
@@ -754,6 +758,7 @@ body.login {
 }
 
 .filter-box.date {
+	min-width: 160px;
 	padding-right: 25px;
 }
 
@@ -843,6 +848,11 @@ body.login {
 	background-color: #0f8067;
 	border-radius: 4px;
 	cursor: pointer;
+}
+
+.date-range-form button:disabled,
+.date-range-form button[disabled] {
+	opacity: 0.5;
 }
 
 .date-range-form input::-webkit-input-placeholder { /* Chrome/Opera/Safari */

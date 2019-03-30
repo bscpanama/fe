@@ -5,7 +5,9 @@ import * as actions from '../../actions';
 class SignOut extends Component {
 
   componentDidMount() {
-    this.props.signout();
+    this.props.signout(() => {
+      this.props.history.push('/');
+    });
   }
 
   render() {

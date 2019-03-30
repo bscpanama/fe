@@ -3,14 +3,25 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
-import { changeMenuStatus } from '../actions/index.js';
+import { changeMenuStatus, SITE_URL } from '../actions/index.js';
 
 class Header extends Component {
   constructor(props) {
     super(props);
+
+    console.log(this.props.auth);
   }
 
   render() {
+    let avatarImg = '';
+    if(this.props.auth.avatar_url != 'default') {
+      avatarImg = SITE_URL + this.props.auth.authenticaded.avatar_url
+    }   
+
+    let avatarImage = {
+      backgroundImage: `url(${avatarImg})`,
+      backgroundSize: 'cover'
+    };
     return (
       <div className="user-header">
           <div className="menu-icon" onClick={() => this.props.changeMenuStatus(this.props.menustatus) }>
@@ -25,7 +36,7 @@ class Header extends Component {
                       <span>{this.props.auth ? this.props.auth.authenticaded.user_name : 'Guest'}</span>
                       <strong>{this.props.auth ? this.props.auth.authenticaded.user_type : 'guest'}</strong>
                   </div>
-                  <div className="avatar">
+                  <div className="avatar" style={this.props.auth.authenticaded.avatar_url != 'default' ? avatarImage : '' }>
                       
                   </div>
               </div>

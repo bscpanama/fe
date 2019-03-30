@@ -20,7 +20,7 @@ class Movimientos extends Component {
         this.setFilterEstatus = this.setFilterEstatus.bind(this);
         this.setFilterDate = this.setFilterDate.bind(this);
         this.setFilterDateRange = this.setFilterDateRange.bind(this);
-        this.setFilterDateYear = this.setFilterDateYear.bind(this);
+        this.dateInputChange = this.dateInputChange.bind(this);
 
         this.state = {
             totalpages: 1,
@@ -28,9 +28,12 @@ class Movimientos extends Component {
             filterEstatusOpen: '',
             filterDateOpen: '',
             currentestatus: 'Todos',
-            currentdate: 'Últimos 30 días',
-            currentestatusvalue: '',
-            currentdatevalue: ''
+            currentdate: 'Todo',
+            currentestatusvalue: 'todos',
+            currentdatevalue: 'todo',
+            currentdaterangebegin: '',
+            currentdaterangeend: '',
+            buttondatedisabled: true
         };        
     }
 
@@ -136,7 +139,12 @@ class Movimientos extends Component {
         filterEstatusOpen: '',
         currentpage: 1
     });
-    this.props.loadInvoices({page: 1, status: value, date: this.state.currentdatevalue });
+
+    if(this.state.currentdaterangebegin != '' && this.state.currentdaterangeend != '') {
+        this.props.loadInvoices({page: 1, status: value, datebegin: this.state.currentdaterangebegin, dateend: this.state.currentdaterangeend });
+    } else {
+        this.props.loadInvoices({page: 1, status: value, date: this.state.currentdatevalue });
+    }
   }
 
   setFilterDate(value, label) {
@@ -144,21 +152,79 @@ class Movimientos extends Component {
         currentdate: label,
         currentdatevalue: value,
         filterDateOpen: '',
+        currentdaterangebegin: '',
+        currentdaterangeend: '',
         currentpage: 1
     });
     this.props.loadInvoices({page: 1, status: this.state.currentestatusvalue, date: value });
   }
 
-  setFilterDateYear(value, label) {
-    
+  setFilterDateRange() {
+    this.setState({
+        currentdate: this.state.currentdaterangebegin + ' - ' + this.state.currentdaterangeend,
+        currentdatevalue: 'todo',
+        filterDateOpen: '',
+        currentdaterangebegin: '',
+        currentdaterangeend: '',
+        currentpage: 1,
+        buttondatedisabled: true
+    });
+    this.props.loadInvoices({page: 1, status: this.state.currentestatusvalue, datebegin: this.state.currentdaterangebegin, dateend: this.state.currentdaterangeend });
   }
 
-  setFilterDateRange() {
+  dateInputChange(event) {
+    if(event.target.value.length <= 10) {
+        if(event.target.name == 'date-begin') {
+            this.setState({
+                currentdaterangebegin: event.target.value
+            });
+            if(event.target.value.length == 10 ){
 
+                if(!event.target.value.match(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)){
+                    this.setState({
+                        currentdaterangebegin: ''
+                    });
+                } else {
+                    if(this.state.currentdaterangeend.length == 10) {
+                        this.setState({
+                            buttondatedisabled: false
+                        });
+                    }
+                }                
+            }
+
+            if(this.state.buttondatedisabled === false) {
+                this.setState({
+                    buttondatedisabled: true
+                });
+            }
+        } else {
+            this.setState({
+                currentdaterangeend: event.target.value
+            });
+             if(event.target.value.length == 10 ){
+                if(!event.target.value.match(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)){
+                    this.setState({
+                        currentdaterangeend: ''
+                    });
+                } else {
+                    if(this.state.currentdaterangebegin.length == 10) {
+                        this.setState({
+                            buttondatedisabled: false
+                        });
+                    } 
+                }                
+            }
+            if(this.state.buttondatedisabled === false) {
+                this.setState({
+                    buttondatedisabled: true
+                });
+            }           
+        }
+    }
   }
 
   render(){
-    console.log(this.props.invoices);
     return (
     	<div>
         	<Sidebar />
@@ -181,22 +247,22 @@ class Movimientos extends Component {
                                 <div className={'filter-box date ' + this.state.filterDateOpen}>
                                     <div className="current-option" onClick={()=>this.dateFilterToggle()}>{this.state.currentdate}</div>
                                     <div className="options-container">
-                                        <ul>
-                                            <li onClick={()=>this.setFilterDate('30', 'Últimos 30 días')}>Últimos 30 días</li>
-                                            <li onClick={()=>this.setFilterDate('90', 'Últimos 90 días')}>Últimos 90 días</li>
-                                            <li>2019</li>
-                                            <li>2018</li>
+                                        <ul>                                            
+                                            <li onClick={()=>this.setFilterDate('1', 'Hoy')}>Hoy</li>
+                                            <li onClick={()=>this.setFilterDate('7', 'Hace 7 días')}>Hace 7 días</li>
+                                            <li onClick={()=>this.setFilterDate('30', 'Hace Un Mes')}>Hace Un Mes</li>
+                                            <li onClick={()=>this.setFilterDate('todo', 'Todo')}>Todo</li>
                                         </ul>
                                         <div className="date-range-form">
                                             <div className="date-wrapper">
                                             <label>Del</label>   
-                                            <input type="text" name="date-begin" className="date-begin" placeholder="ej. 12/31/2018" />
+                                            <input type="text" name="date-begin" value={this.state.currentdaterangebegin} onChange={this.dateInputChange} className="date-begin" placeholder="ej. 2018-12-31" />
                                             </div>
                                             <div className="date-wrapper">
                                             <label>Al</label>    
-                                            <input type="text" name="date-end" className="date-end" placeholder="ej. 12/31/2018" />
+                                            <input type="text" name="date-end" value={this.state.currentdaterangeend} onChange={this.dateInputChange} className="date-end" placeholder="ej. 2018-12-31" />
                                             </div>
-                                            <button>Enviar</button>
+                                            <button onClick={()=>this.setFilterDateRange()} disabled={this.state.buttondatedisabled}>Enviar</button>
                                         </div>                                
                                     </div>
                                 </div>
@@ -226,7 +292,7 @@ class Movimientos extends Component {
                         </div>
                     </div>
                     <div className="pagination">
-                        <span className="prev-pag" onClick={(e) => this.previousPage(e)}>&lt;</span> <span className="counter-pages">Página { this.state.currentpage } - { this.props.invoices ? this.props.invoices.meta[0].pages : this.state.totalpages }</span> <span className="next-pag" onClick={(e) => this.nextPage(e)}>&gt;</span>
+                        <span className="prev-pag" onClick={(e) => this.previousPage(e)}>&lt;</span> <span className="counter-pages">Página { this.state.currentpage } - { this.props.invoices ? (this.props.invoices.meta[0].pages != 0 ? this.props.invoices.meta[0].pages : 1) : this.state.totalpages }</span> <span className="next-pag" onClick={(e) => this.nextPage(e)}>&gt;</span>
                     </div>
                 </div>
             </div>
