@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, LOAD_INVOICES, LOAD_STATS, LOAD_USERS, LOAD_USER, CHANGE_MENU_STATUS, SUCCESFUL_USER_CREATED, SETTINGS_UPDATED } from './types';
+import { AUTH_USER, AUTH_ERROR, LOAD_INVOICES, LOAD_STATS, LOAD_USERS, LOAD_USER, CHANGE_MENU_STATUS, SUCCESFUL_USER_CREATED, SETTINGS_UPDATED, FORGOT_PASSWORD_RESET, RESET_PASSWORD } from './types';
 
 
 const qs = require('qs');
@@ -42,6 +42,11 @@ export const signin = ({ email, password }, callback) => async dispatch => {
 
 export const signout = (callback) => {
   localStorage.removeItem('bsctoken');
+  localStorage.removeItem('bsctoken');
+  localStorage.removeItem('bscID');
+  localStorage.removeItem('bscName');
+  localStorage.removeItem('bscType');
+  localStorage.removeItem('bscAvatar');
 
   callback();
   return {
@@ -306,20 +311,20 @@ export const updateSettings = (values) => async dispatch => {
   const uid = localStorage.getItem("bscID");
   const url = `${SITE_URL}/user_accounts/${uid}`;
   const token = localStorage.getItem("bsctoken");
-  let formData = new FormData();
+
+  const data = {
+    password: values.password,
+    password_confirmation: values.passwordconfirmation
+  };
+
   try {
     const config = {
       headers: {
         'Authorization': token,
-        'Accept': 'application/vnd.factura.v1+json',
-        'Content-Type': 'multipart/form-data'
+        'Accept': 'application/vnd.factura.v1+json'
       }      
     }
-
-    formData.append('password',values.password);
-    formData.append('password_confirmation',values.passwordconfirmation);
-
-    const response = await axios.put(url, formData, config);
+    const response = await axios.put(url, data, config);
     dispatch({
       type: SETTINGS_UPDATED,
       payload: 'Su usario ha sido actualizado con exito'
@@ -330,6 +335,39 @@ export const updateSettings = (values) => async dispatch => {
       payload: e.data.message
     });*/
   }
+};
 
-  console.log(values);
+export const forgot = ({email}) => async dispatch => {
+  const url = `${SITE_URL}/passwords/forgot?email=${email}`;
+
+  try {
+    const response = await axios.post(url);
+    dispatch({
+      type: FORGOT_PASSWORD_RESET,
+      payload: 'Se le ha enviado un correo'
+    });    
+  } catch (e) {
+    /*dispatch({
+      type: AUTH_ERROR,
+      payload: e.data.message
+    });*/
+  }
+};
+
+export const resetPass = ({password, password_confirmation, token}) => async dispatch => {
+  
+  const url = `${SITE_URL}/passwords/reset?password=${password}&token=${token}`;
+
+  try {
+    const response = await axios.post(url);
+    dispatch({
+      type: RESET_PASSWORD,
+      payload: 'Su contraseña ha sido cambiada con exito'
+    });    
+  } catch (e) {
+    /*dispatch({
+      type: AUTH_ERROR,
+      payload: e.data.message
+    }); */
+  }
 };

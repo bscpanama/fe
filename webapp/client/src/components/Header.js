@@ -14,14 +14,31 @@ class Header extends Component {
 
   render() {
     let avatarImg = '';
-    if(this.props.auth.avatar_url != 'default') {
-      avatarImg = SITE_URL + this.props.auth.authenticaded.avatar_url
-    }   
-
-    let avatarImage = {
-      backgroundImage: `url(${avatarImg})`,
-      backgroundSize: 'cover'
-    };
+    let user_name = '';
+    let user_type = '';
+    let avatarImage = {};
+    console.log(this.props.auth);
+    if(typeof this.props.auth.avatar_url !== 'undefined'){
+      user_name = this.props.auth.user_name;
+      user_type = this.props.auth.user_type;
+      if(this.props.auth.avatar_url != 'default') {
+        avatarImg = SITE_URL + this.props.auth.avatar_url;
+        avatarImage = {
+          backgroundImage: `url(${avatarImg})`,
+          backgroundSize: 'cover'
+        };
+      }
+    } else {
+      user_name = this.props.auth.authenticaded.user_name;
+      user_type = this.props.auth.authenticaded.user_type;
+      if(this.props.auth.authenticaded.avatar_url != 'default') {
+        avatarImg = SITE_URL + this.props.auth.authenticaded.avatar_url;
+        avatarImage = {
+          backgroundImage: `url(${avatarImg})`,
+          backgroundSize: 'cover'
+        };
+      }
+    }
     return (
       <div className="user-header">
           <div className="menu-icon" onClick={() => this.props.changeMenuStatus(this.props.menustatus) }>
@@ -33,11 +50,10 @@ class Header extends Component {
               
               <div className="user-info">
                   <div className="user-details">
-                      <span>{this.props.auth ? this.props.auth.authenticaded.user_name : 'Guest'}</span>
-                      <strong>{this.props.auth ? this.props.auth.authenticaded.user_type : 'guest'}</strong>
+                      <span>{user_name}</span>
+                      <strong>{user_type}</strong>
                   </div>
-                  <div className="avatar" style={this.props.auth.authenticaded.avatar_url != 'default' ? avatarImage : '' }>
-                      
+                  <div className="avatar"  style={avatarImage}>                      
                   </div>
               </div>
               <div className="logout">

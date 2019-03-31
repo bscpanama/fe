@@ -267,7 +267,7 @@ class Usuarios extends Component {
                                     Estatus
                                 </div>
                             </div>
-                            { this.props.users.data ? this.props.users.data.map(this.renderTable, this) : <div>Cargando</div> }
+                            { this.props.users.data ?  (this.props.users.data.length != 0 ? this.props.users.data.map(this.renderTable, this) : <div className="fullresult">No se encontraron resultados</div>) : <div>Cargando</div> }
                             
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-import { LOAD_INVOICES, LOAD_STATS, LOAD_USERS, LOAD_USER, CHANGE_MENU_STATUS, SUCCESFUL_USER_CREATED, SETTINGS_UPDATED } from '../actions/types';
+import { LOAD_INVOICES, LOAD_STATS, LOAD_USERS, LOAD_USER, CHANGE_MENU_STATUS, SUCCESFUL_USER_CREATED, SETTINGS_UPDATED, FORGOT_PASSWORD_RESET, RESET_PASSWORD } from '../actions/types';
 
 const INITIAL_STATE = {
   invoices : '',
@@ -7,7 +7,9 @@ const INITIAL_STATE = {
   user: '',
   menustatus: 'open',
   usercreated: '',
-  settings_updated_message: ''
+  settings_updated_message: '',
+  forgotMessage: '',
+  resetMessage: ''
 }
 
 export default function(state = INITIAL_STATE, action) {
@@ -33,6 +35,10 @@ export default function(state = INITIAL_STATE, action) {
     case SETTINGS_UPDATED:
       return { ...state, settings_updated_message: action.payload };
       break;
+    case FORGOT_PASSWORD_RESET: 
+     return { ...state, forgotMessage: action.payload };
+    case RESET_PASSWORD:
+     return { ...state, resetMessage: action.payload };
     default:
       return state;
   }

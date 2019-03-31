@@ -44,7 +44,9 @@ class SignIn extends Component {
             <Field name="password" type="password" component="input" autoComplete="none" placeholder="Contraseña" className="password-input" />
             <Field name='captcharesponse' component={this.Captcha}/>
             <input type="submit" name="submit" value="Ingresar" />
-            <a href="#" className="reset-pass-link a-link">¿Olvidaste tu contraseña?</a>
+            <div className="reset-pass-link">
+              <Link to="recuperar">¿Olvidaste tu contraseña?</Link>
+            </div>
             <div className="error-messages">{this.props.errorMessage}</div> 
           </form>
         </div>

@@ -16,11 +16,20 @@ import ModifyUser from './components/ModifyUser';
 import Ajustes from './components/Ajustes';
 import SignIn from './components/auth/Signin';
 import SignOut from './components/auth/Signout';
+import Forgot from './components/auth/Forgot';
+import Reset from './components/auth/Reset';
+
 
 const store = createStore(
   reducers,
   {
-    auth: { authenticaded: localStorage.getItem('bsctoken'), user_name:  localStorage.getItem('bscName'), user_type: localStorage.getItem('bscType'), avatar_url: localStorage.getItem('bscAvatar'), user_id: localStorage.getItem('bscID') }
+    auth: { authenticaded: {
+      auth_token: localStorage.getItem('bsctoken'),
+      user_name:  localStorage.getItem('bscName'), 
+      user_type: localStorage.getItem('bscType'), 
+      avatar_url: localStorage.getItem('bscAvatar'), 
+      user_id: localStorage.getItem('bscID')} 
+    }
   },
   applyMiddleware(reduxThunk)
 );
@@ -30,6 +39,8 @@ ReactDOM.render(
     <BrowserRouter>
       <App>
         <Route path="/" exact component={SignIn} />
+        <Route path="/recuperar" exact component={Forgot} />
+        <Route path="/reset_password" exact component={Reset} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/movimientos" component={Movimientos} />
         <Route path="/usuarios" component={Usuarios} />

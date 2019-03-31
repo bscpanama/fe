@@ -7,3 +7,5 @@ export const LOAD_USER = 'load_user';
 export const CHANGE_MENU_STATUS = 'change_menu_status';
 export const SUCCESFUL_USER_CREATED = 'succesful_user_created';
 export const SETTINGS_UPDATED = 'settings_updated';
+export const FORGOT_PASSWORD_RESET = 'forgot_password_reset';
+export const RESET_PASSWORD = 'reset_password';
