@@ -45,7 +45,7 @@ class Movimientos extends Component {
 
     downloadPDF(invoiceId) {
         const url = `${SITE_URL}/pdfs/${invoiceId}`;
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("bsctoken");
         const config = {
             headers: {
               'Authorization': token,
