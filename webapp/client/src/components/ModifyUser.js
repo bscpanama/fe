@@ -65,7 +65,7 @@ class ModifyUser extends Component {
     let previewImg = '';
     if(typeof this.props.user.data !== 'undefined' && this.state.preview == '') {
       if(this.props.user.data.attributes.account.avatar_url != null ) {
-        previewImg = SITE_URL + this.props.user.data.attributes.account.avatar_url
+        previewImg = SITE_URL + this.props.user.data.attributes.account.avatar_url;
       }
     } else {
       previewImg = this.state.preview;

@@ -247,14 +247,18 @@ body.login {
 
 }
 
-.navigation ul li {
-	padding: 30px 40px;
+.navigation ul li {	
 	font-size: 20px;
 	font-weight: 500;
 	color: #fff;
 	cursor: pointer;
 	background-color: transparent;
 	transition: background-color .2s ease;
+}
+
+.navigation ul li a {
+	display: block;
+	padding: 30px 40px;
 }
 
 .navigation ul li a,

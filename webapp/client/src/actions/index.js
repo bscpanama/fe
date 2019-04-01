@@ -24,7 +24,6 @@ export const signin = ({ email, password }, callback) => async dispatch => {
       type: AUTH_USER,
       payload: response.data
     });
-    console.log(response.data);
     localStorage.setItem('bsctoken', response.data.auth_token);
     localStorage.setItem('bscID', response.data.user_id);
     localStorage.setItem('bscName', response.data.user_name);
@@ -32,7 +31,6 @@ export const signin = ({ email, password }, callback) => async dispatch => {
     localStorage.setItem('bscAvatar', response.data.avatar_url);
     callback();
   } catch (e) {
-    console.log(e.message);
     dispatch({
       type: AUTH_ERROR,
       payload: e.message
@@ -78,7 +76,6 @@ export const loadInvoices = (values) => async dispatch => {
     params.by_period = {};
     params.by_period.started_at = values.datebegin;
     params.by_period.ended_at = values.dateend;
-    console.log(params);
   }
 
   const config = {
@@ -154,7 +151,6 @@ export const loadUsers = (values) => async dispatch => {
     params.by_period = {};
     params.by_period.started_at = values.datebegin;
     params.by_period.ended_at = values.dateend;
-    console.log(params);
   }
 
   const config = {
@@ -239,7 +235,6 @@ export const createUserAccount = (values, callback) => async dispatch => {
       payload: e.data.message
     });*/
   }
-  console.log(values);
 };
 
 export const loadUser = (id) => async dispatch => {
