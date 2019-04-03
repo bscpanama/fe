@@ -147,12 +147,12 @@ body.login {
 	background-repeat: no-repeat;
 }
 
-.login-box form input.email-input {
-	background-image: url(../assets/user-icon.png);
+.login-box form input[type=email] {
+	background-image: url(../assets/user-icon.png)!important;
 }
 
-.login-box form input.password-input {
-	background-image: url(../assets/pass-icon.png);
+.login-box form input[type=password] {
+	background-image: url(../assets/pass-icon.png)!important;
 }
 
 .reset-pass-link a,

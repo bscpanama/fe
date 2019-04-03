@@ -54,6 +54,7 @@ class ModifyUser extends Component {
           onBlur={this.adaptFileEventToValue(onBlur)}
           type="file"
           id="avatar"
+          accept="image/*"
           {...props.input}
           {...props}
         />

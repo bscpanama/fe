@@ -25,7 +25,7 @@ class CreateUser extends Component {
 	}
 
   onSubmit = formProps => {
-    this.props.createUserAcount(formProps, () => {
+    this.props.createUserAccount(formProps, () => {
       this.props.history.push('/usuarios');
     });
   };
@@ -51,6 +51,7 @@ class CreateUser extends Component {
           onBlur={this.adaptFileEventToValue(onBlur)}
           type="file"
           id="avatar"
+          accept="image/*"
           {...props.input}
           {...props}
         />
