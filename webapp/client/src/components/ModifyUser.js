@@ -8,14 +8,35 @@ import Sidebar from './Sidebar';
 import { Link } from 'react-router-dom';
 
 import { loadUser, modifyUserAccount, SITE_URL } from '../actions/index.js';
+import { MODIFY_USER_ERROR } from '../actions/types';
 
+const required = value => value ? undefined : 'Requerido';
+const maxLength = max => value =>
+  value && value.length > max ? `Must be ${max} characters or less` : undefined;
+const number = value => value && isNaN(Number(value)) ? 'Debe ser un numero' : undefined;
+const minValue = min => value =>
+  value && value < min ? `Debe ser almenos ${min}` : undefined;
+const email = value =>
+  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
+  'Formato de correo invalido' : undefined;
+
+const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  <div className="input-wrapper">
+    <label>{label}</label>
+    <div>
+      <input {...input} type={type}/>
+      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+    </div>
+  </div>
+);
 
 class ModifyUser extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      preview: ''
+      preview: '',
+      userModifyErrorMessage: ''
     }
   }
 
@@ -27,6 +48,19 @@ class ModifyUser extends Component {
       this.props.loadUser(this.props.match.params.id);
 	}
 
+  componentWillReceiveProps(nextProps) {
+    // This will erase any local state updates!
+    // Do not do this.
+    this.setState({ userModifyErrorMessage: nextProps.userModifyErrorMessage });
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch({
+      type: MODIFY_USER_ERROR,
+      payload: ''
+    });
+  }
+  
   onSubmit = formProps => {
     this.props.modifyUserAccount(formProps, () => {
       this.props.history.push('/usuarios');
@@ -77,7 +111,7 @@ class ModifyUser extends Component {
     };
 
 
-    const { handleSubmit } = this.props;
+    const { handleSubmit, submitting, pristine, invalid } = this.props;
     return (
     	<div>
         	<Sidebar />
@@ -95,30 +129,30 @@ class ModifyUser extends Component {
                             <label>Avatar</label>
                           </div>
                           <div className="form-right">
-                            <div className="input-wrapper">
-                              <label>Correo Electrónico</label>
-                              <Field name="email" type="email" component="input" autoComplete="none" />
-                            </div>
-                            <div className="input-wrapper">
-                              <label>Nombre</label>
-                              <Field name="name" type="text" component="input" autoComplete="none" />
-                            </div>
-                            <div className="input-wrapper">
-                              <label>Apellido</label>
-                              <Field name="lastname" type="text" component="input" autoComplete="none" />
-                            </div>
-                            <div className="input-wrapper">
-                              <label>Compañía</label>
-                              <Field name="company" type="text" component="input" autoComplete="none" />
-                            </div>
-                            <div className="input-wrapper">
-                              <label>Teléfono</label>
-                              <Field name="phone" type="tel" component="input" autoComplete="none" />
-                            </div>
-                            <div className="input-wrapper">
-                              <label>Celular</label>
-                              <Field name="mobile" type="text" component="input" autoComplete="none" />
-                            </div>
+                            <Field name="email" type="email"
+                              component={renderField} label="Email"
+                              validate={[required, email]}
+                            />
+                            <Field name="name" type="text"
+                              component={renderField} label="Nombre"
+                              validate={required}
+                            />
+                            <Field name="lastname" type="text"
+                              component={renderField} label="Apellido"
+                              validate={required}
+                            />
+                            <Field name="company" type="text"
+                              component={renderField} label="Compañía"
+                              validate={required}
+                            />
+                            <Field name="phone" type="text"
+                              component={renderField} label="Teléfono"
+                              validate={[required, number]}
+                            />
+                            <Field name="mobile" type="text"
+                              component={renderField} label="Celular"
+                              validate={[required, number]}
+                            />
                             <div className="input-wrapper">
                               <label>Planes</label>
                               <Field name="plans" component="select">
@@ -139,10 +173,11 @@ class ModifyUser extends Component {
                         </div>
                         </div>
                         <div className="form-actions">
-                          <input type="submit" name="submit" value="Modificar usuario" />
+                          <input type="submit" name="submit" value="Modificar usuario" disabled={submitting || invalid || pristine } />
                           <Link to="/usuarios">Cancelar</Link>
                         </div>
                       </form>
+                      {this.state.userModifyErrorMessage != '' ? <div className="error-message-form"> { this.state.userModifyErrorMessage == 'Network Error' ? 'Ha habido un error. por favor intenta otra vez o intenta más tarde.' : this.state.errorMessage } </div> : '' }
                     </div>
                 </div>
             </div>
@@ -153,8 +188,8 @@ class ModifyUser extends Component {
 
 
 function mapStateToProps({ movements }) {
-    const { menustatus, user } = movements;
-   
+    const { menustatus, user, userModifyErrorMessage } = movements;
+    console.log(user );
     const initialValues = {
       id: user ? user.data.id : '',
       email: user ? user.data.attributes.email : '',
@@ -164,11 +199,11 @@ function mapStateToProps({ movements }) {
       phone: user ? user.data.attributes.account.phone_number : '',
       mobile:  user ? user.data.attributes.account.mobile_number : '',
       plans: user ? (user.data.attributes.account.plan_id != null ? user.data.attributes.account.plan_id : 1) : 1,
-      status: user ? user.data.attributes.account.status : '',
+      status: user ? user.data.attributes.account.status : 'activo',
       account_id: user ? user.data.attributes.account.id : ''
     };
 
-    return { menustatus, user, initialValues  };
+    return { menustatus, user, userModifyErrorMessage, initialValues  };
 }
 
 function mapDispatchToProps(dispatch) {

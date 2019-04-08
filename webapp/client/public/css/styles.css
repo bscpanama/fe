@@ -155,6 +155,49 @@ body.login {
 	background-image: url(../assets/pass-icon.png)!important;
 }
 
+.input-wrapper-login {
+	position: relative;
+}
+
+form .input-wrapper-login.error input {
+	border-bottom: 1px solid #e03b3b;
+}
+
+.input-wrapper-login .error-input {
+    position: absolute;
+    display: block;
+    width: 100%;
+    top: 100%;
+    padding-top: 5px;
+    color: #e03b3b;
+    text-align: center;
+    font-size: 12px;
+}
+
+.error-messages {
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px 0;
+    background-color: #e03b3b;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: .5px;
+}
+
+.success-messages {
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px 0;
+    background-color: #00ab6c;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: .5px;
+}
+
 .reset-pass-link a,
 .a-link {
 	display: inline-block;
@@ -170,7 +213,7 @@ body.login {
 	display: block;
 	max-width: 150px;
 	padding: 10px 20px;
-	margin-top: 20px;
+	margin-top: 30px;
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #0f8067;
@@ -179,6 +222,11 @@ body.login {
 	color: #fff;
 	border-radius: 8px;
 	cursor: pointer;
+}
+
+.login-box form input[type="submit"]:disabled {
+	opacity: 0.6;
+	cursor: default;
 }
 
 .login-box form input[type="email"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -214,7 +262,7 @@ body.login {
 
 /* Menu Interface */
 .side-menu {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 20%;
@@ -434,6 +482,11 @@ body.login {
 	border-radius: 4px;
 }
 
+.filter .action-button {
+	float: right;
+	margin-top: 10px;
+}
+
 .t-header {	
 	border-top: 1px solid #edeef3;
 	border-bottom: 1px solid #edeef3;
@@ -492,12 +545,28 @@ body.login {
     cursor: pointer;
 }
 
+.edit-action {
+	display: inline-block;
+}
+
 .action-pdf {
 	background-image: url(../assets/pdf-icon.png);
 }
 
 .action-xml {
 	background-image: url(../assets/xml-icon.png);
+}
+
+.edit-action a {
+	display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin: 0 10px; 
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+	background-image: url(../assets/edit.png);
+	text-indent: -99999px;
 }
 
 .activity-table {
@@ -616,6 +685,7 @@ body.login {
 }
 
 .input-wrapper {
+	position: relative;
 	float: left;
 	width: 33.33%;
 	padding-left: 30px;
@@ -650,6 +720,7 @@ body.login {
 	width: 100%;
 	padding: 5px 10px;
 	border: 1px solid #cccccc;
+	-webkit-appearance: normal;
 }
 
 .form-left input[type="file"] {
@@ -675,6 +746,17 @@ body.login {
 	cursor: pointer;
 }
 
+.input-wrapper span {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    font-size: 12px;
+    color: red;
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 .form-actions {
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -693,6 +775,11 @@ body.login {
 	border-radius: 6px;
 	text-align: center;
 	cursor: pointer;
+}
+
+.form-actions input:disabled {
+	opacity: 0.6;
+	cursor: default;
 }
 
 .form-actions a {
@@ -729,6 +816,15 @@ body.login {
 
 .action-button a:hover {
 	text-decoration: none;
+}
+
+.error-message-form {
+    color: #e03b3b;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 14px;
 }
 
 /* Filter */

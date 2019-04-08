@@ -5,38 +5,48 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { Link } from 'react-router-dom';
 
-const required = value => value ? undefined : 'Required';
-const maxLength = max => value =>
-  value && value.length > max ? `Must be ${max} characters or less` : undefined;
-const maxLength15 = maxLength(15);
-const number = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined;
-const minValue = min => value =>
-  value && value < min ? `Must be at least ${min}` : undefined;
-const minValue18 = minValue(18);
+import { AUTH_ERROR } from '../../actions/types';
+
+const required = value => value ? undefined : 'Requerido';
 const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
   'Correo Invalido' : undefined;
-const tooOld = value =>
-  value && value > 65 ? 'You might be too old for this' : undefined;
-const aol = value =>
-  value && /.+@aol\.com/.test(value) ?
-  'Really? You still use AOL for your email?' : undefined;
 
 const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
   <div>
-    <div>
+    <div className="input-wrapper-login">
       <input {...input} placeholder={label} type={type}/>
-      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+      {touched && ((error && <span className="error-input">{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
   </div>
 );
 
 class SignIn extends Component {
+  constructor(props){
+    super(props);
+    
+    this.state = {
+      errorMessage: ''
+    }
+  }
+
   componentDidMount() {
     document.title = "BS&C - Login";
     document.body.classList.add('login');
-
     
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // This will erase any local state updates!
+    // Do not do this.
+    this.setState({ errorMessage: nextProps.errorMessage });
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch({
+      type: AUTH_ERROR,
+      payload: ''
+    });
   }
 
   onSubmit = formProps => {
@@ -47,7 +57,7 @@ class SignIn extends Component {
 
   
   render() {
-    const { handleSubmit } = this.props;    
+    const { handleSubmit, submitting } = this.props;    
 
     return (
       <div>
@@ -58,12 +68,12 @@ class SignIn extends Component {
           <form onSubmit={handleSubmit(this.onSubmit)}>
             <h2>Bienvenido</h2>
             <Field name="email" type="email" component={renderField} className="email-input" validate={[required, email]} label="Correo Electrónico" />
-            <Field name="password" type="password" component="input" autoComplete="none" placeholder="Contraseña" className="password-input" />
-            <input type="submit" name="submit" value="Ingresar" />
+            <Field name="password" type="password" component={renderField} className="password-input" validate={required} label="Contraseña" />
+            <input type="submit" name="submit" value="Ingresar" disabled={submitting} />
             <div className="reset-pass-link">
               <Link to="recuperar">¿Olvidaste tu contraseña?</Link>
             </div>
-            <div className="error-messages">{this.props.errorMessage}</div> 
+            {this.state.errorMessage ?<div className="error-messages">{this.state.errorMessage}</div> : '' }
           </form>
         </div>
       </div>

@@ -60,7 +60,7 @@ class Usuarios extends Component {
                     { user.attributes.account ? (user.attributes.account.company ? user.attributes.account.company : 'N/A') : 'N/A'} 
                 </div>
                 <div className="t-col">
-                   <span className={user.attributes.account.status == "activo" ? 'active' : 'not-active'}>{ user.attributes.account ? (user.attributes.account.status == "activo" ?'Activo' : 'Inactivo') : ''}</span><Link to={'modificarusuario/'+user.id}>editar</Link>
+                   <span className={user.attributes.account.status == "activo" ? 'active' : 'not-active'}>{ user.attributes.account ? (user.attributes.account.status == "activo" ?'Activo' : 'Inactivo') : ''}</span><div className="edit-action"><Link to={'modificarusuario/'+user.id}>editar</Link></div>
                 </div>
           </div>
         );
@@ -211,10 +211,7 @@ class Usuarios extends Component {
         	<div className={'main-content ' + this.props.menustatus}>
         		<Header/>             
         		<div className="main-container">
-                    <div className="clearfix">
-                        <div className="action-button">
-                            <Link to="/crearusuario" >+ Crear Usuario</Link>
-                        </div>
+                    <div className="clearfix">                        
                         <div className="table table-users">
                             <div className="filter">
                                 <div className={'filter-box estatus ' + this.state.filterEstatusOpen}>
@@ -249,6 +246,9 @@ class Usuarios extends Component {
                                         </div>                                
                                     </div>
                                 </div>
+                                <div className="action-button">
+                                    <Link to="/crearusuario" >+ Crear Usuario</Link>
+                                </div>
                             </div>
                             <div className="t-header">
                                 <div className="t-col">
@@ -267,7 +267,7 @@ class Usuarios extends Component {
                                     Estatus
                                 </div>
                             </div>
-                            { this.props.users.data ?  (this.props.users.data.length != 0 ? this.props.users.data.map(this.renderTable, this) : <div className="fullresult">No se encontraron resultados</div>) : <div>Cargando</div> }
+                            { this.props.users.data ?  (this.props.users.data.length != 0 ? this.props.users.data.map(this.renderTable, this) : <div className="fullresult">No se encontraron resultados</div>) : <div className="fullresult">Cargando</div> }
                             
                         </div>
                     </div>

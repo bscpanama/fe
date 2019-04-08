@@ -9,7 +9,6 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props.auth);
   }
 
   render() {
@@ -17,7 +16,6 @@ class Header extends Component {
     let user_name = '';
     let user_type = '';
     let avatarImage = {};
-    console.log(this.props.auth);
     if(typeof this.props.auth.avatar_url !== 'undefined'){
       user_name = this.props.auth.user_name;
       user_type = this.props.auth.user_type;

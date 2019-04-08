@@ -1,4 +1,4 @@
-import { LOAD_INVOICES, LOAD_STATS, LOAD_USERS, LOAD_USER, CHANGE_MENU_STATUS, SUCCESFUL_USER_CREATED, SETTINGS_UPDATED, FORGOT_PASSWORD_RESET, RESET_PASSWORD } from '../actions/types';
+import { LOAD_INVOICES, LOAD_STATS, LOAD_USERS, LOAD_USER, CHANGE_MENU_STATUS, SUCCESFUL_USER_CREATED, SETTINGS_UPDATED, FORGOT_PASSWORD_RESET, FORGOT_PASSWORD_RESET_ERROR, RESET_PASSWORD, RESET_PASSWORD_ERROR, SETTINGS_UPDATE_ERROR, CREATE_USER_ERROR, MODIFY_USER_ERROR } from '../actions/types';
 
 const INITIAL_STATE = {
   invoices : '',
@@ -7,9 +7,14 @@ const INITIAL_STATE = {
   user: '',
   menustatus: 'open',
   usercreated: '',
+  userCreateErrorMessage: '',
+  userModifyErrorMessage: '',
   settings_updated_message: '',
+  settingsUpdateErrorMessage: '',
   forgotMessage: '',
-  resetMessage: ''
+  forgotMessageError: '',
+  resetMessage: '',
+  resetMessageError: '',
 }
 
 export default function(state = INITIAL_STATE, action) {
@@ -35,10 +40,20 @@ export default function(state = INITIAL_STATE, action) {
     case SETTINGS_UPDATED:
       return { ...state, settings_updated_message: action.payload };
       break;
+    case SETTINGS_UPDATE_ERROR:
+     return { ...state, settingsUpdateErrorMessage: action.payload };
     case FORGOT_PASSWORD_RESET: 
      return { ...state, forgotMessage: action.payload };
+     case FORGOT_PASSWORD_RESET_ERROR: 
+     return { ...state, forgotMessageError: action.payload };
     case RESET_PASSWORD:
      return { ...state, resetMessage: action.payload };
+     case RESET_PASSWORD_ERROR:
+     return { ...state, resetMessageError: action.payload };
+    case CREATE_USER_ERROR:
+     return { ...state, userCreateErrorMessage: action.payload };
+    case MODIFY_USER_ERROR:
+     return { ...state, userModifyErrorMessage: action.payload };
     default:
       return state;
   }

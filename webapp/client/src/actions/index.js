@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, LOAD_INVOICES, LOAD_STATS, LOAD_USERS, LOAD_USER, CHANGE_MENU_STATUS, SUCCESFUL_USER_CREATED, SETTINGS_UPDATED, FORGOT_PASSWORD_RESET, RESET_PASSWORD } from './types';
+import { AUTH_USER, AUTH_ERROR, LOAD_INVOICES, LOAD_STATS, LOAD_USERS, LOAD_USER, CHANGE_MENU_STATUS, SUCCESFUL_USER_CREATED, SETTINGS_UPDATED, SETTINGS_UPDATE_ERROR, FORGOT_PASSWORD_RESET, FORGOT_PASSWORD_RESET_ERROR, RESET_PASSWORD, RESET_PASSWORD_ERROR, CREATE_USER_ERROR, MODIFY_USER_ERROR } from './types';
 
 
 const qs = require('qs');
@@ -15,7 +15,11 @@ export const signin = ({ email, password }, callback) => async dispatch => {
     },
     error => {
       // do someting on errir
-      return Promise.reject(error.response.data) // => gives me the server resonse
+      if(typeof error.response !== 'undefined') {
+        return Promise.reject(error.response.data); // => gives me the server resonse
+      } else {
+        return Promise.reject(error);
+      }
     }
   );
   try {
@@ -188,9 +192,24 @@ export const changeMenuStatus = (status) => dispatch => {
 };
 
 export const createUserAccount = (values, callback) => async dispatch => {
+  console.log(values);
   const url = `${SITE_URL}/user_accounts`;
   const token = localStorage.getItem("bsctoken");
   let formData = new FormData();
+  axios.interceptors.response.use(
+    response => {
+      // do someting on response
+      return response
+    },
+    error => {
+      console.log(error);
+      if(typeof error.response !== 'undefined') {
+        return Promise.reject(error.response.data); // => gives me the server resonse
+      } else {
+        return Promise.reject(error);
+      }
+    }
+  );
   try {
     const config = {
       headers: {
@@ -201,7 +220,10 @@ export const createUserAccount = (values, callback) => async dispatch => {
     }
 
     formData.append('email',values.email);
-    formData.append('account_attributes[avatar]',values.avatar);
+    if(typeof  values.avatar !== 'undefined') {
+      formData.append('account_attributes[avatar]',values.avatar);
+    }
+
     formData.append('account_attributes[name]',values.name);
     formData.append('account_attributes[last_name]',values.lastname);
     formData.append('account_attributes[mobile_number]',values.mobile);
@@ -230,10 +252,11 @@ export const createUserAccount = (values, callback) => async dispatch => {
     });    
     callback();
   } catch (e) {
-    /*dispatch({
-      type: AUTH_ERROR,
-      payload: e.data.message
-    });*/
+    console.log(e);
+    dispatch({
+      type: CREATE_USER_ERROR,
+      payload: e.message
+    });
   }
 };
 
@@ -265,6 +288,20 @@ export const modifyUserAccount = (values, callback) => async dispatch => {
   const url = `${SITE_URL}/user_accounts/${values.id}`;
   const token = localStorage.getItem("bsctoken");
   let formData = new FormData();
+  axios.interceptors.response.use(
+    response => {
+      // do someting on response
+      return response
+    },
+    error => {
+      console.log(error);
+      if(typeof error.response !== 'undefined') {
+        return Promise.reject(error.response.data); // => gives me the server resonse
+      } else {
+        return Promise.reject(error);
+      }
+    }
+  );
   try {
     const config = {
       headers: {
@@ -275,7 +312,7 @@ export const modifyUserAccount = (values, callback) => async dispatch => {
     }
 
     formData.append('email',values.email);
-    if(values.avatar) {
+    if(typeof  values.avatar !== 'undefined') {
       formData.append('account_attributes[avatar]',values.avatar);
     }
     formData.append('account_attributes[name]',values.name);
@@ -293,10 +330,10 @@ export const modifyUserAccount = (values, callback) => async dispatch => {
     });    
     callback();
   } catch (e) {
-    /*dispatch({
-      type: AUTH_ERROR,
-      payload: e.data.message
-    });*/
+    dispatch({
+      type: MODIFY_USER_ERROR,
+      payload: e.message
+    });
   }
 
   console.log(values);
@@ -306,6 +343,20 @@ export const updateSettings = (values) => async dispatch => {
   const uid = localStorage.getItem("bscID");
   const url = `${SITE_URL}/user_accounts/${uid}`;
   const token = localStorage.getItem("bsctoken");
+  axios.interceptors.response.use(
+    response => {
+      // do someting on response
+      return response
+    },
+    error => {
+      console.log(error);
+      if(typeof error.response !== 'undefined') {
+        return Promise.reject(error.response.data); // => gives me the server resonse
+      } else {
+        return Promise.reject(error);
+      }
+    }
+  );
 
   const data = {
     password: values.password,
@@ -322,18 +373,44 @@ export const updateSettings = (values) => async dispatch => {
     const response = await axios.put(url, data, config);
     dispatch({
       type: SETTINGS_UPDATED,
-      payload: 'Su usario ha sido actualizado con exito'
-    });    
+      payload: 'Su contraseña ha sido actualizada. Por favor haga ingreso otra vez.'
+    });
+
+    localStorage.removeItem('bsctoken');
+    localStorage.removeItem('bsctoken');
+    localStorage.removeItem('bscID');
+    localStorage.removeItem('bscName');
+    localStorage.removeItem('bscType');
+    localStorage.removeItem('bscAvatar');
+
+    return {
+      type: AUTH_USER,
+      payload: ''
+    }; 
   } catch (e) {
-    /*dispatch({
-      type: AUTH_ERROR,
-      payload: e.data.message
-    });*/
+    dispatch({
+      type: SETTINGS_UPDATE_ERROR,
+      payload: e.message
+    });
   }
 };
 
 export const forgot = ({email}) => async dispatch => {
   const url = `${SITE_URL}/passwords/forgot?email=${email}`;
+  axios.interceptors.response.use(
+    response => {
+      // do someting on response
+      return response
+    },
+    error => {
+      console.log(error);
+      if(typeof error.response !== 'undefined') {
+        return Promise.reject(error.response.data); // => gives me the server resonse
+      } else {
+        return Promise.reject(error);
+      }
+    }
+  );
 
   try {
     const response = await axios.post(url);
@@ -342,16 +419,29 @@ export const forgot = ({email}) => async dispatch => {
       payload: 'Se le ha enviado un correo'
     });    
   } catch (e) {
-    /*dispatch({
-      type: AUTH_ERROR,
-      payload: e.data.message
-    });*/
+    dispatch({
+      type: FORGOT_PASSWORD_RESET_ERROR,
+      payload: e.message
+    });
   }
 };
 
-export const resetPass = ({password, password_confirmation, token}) => async dispatch => {
-  
+export const resetPass = ({password, password_confirmation, token}) => async dispatch => {  
   const url = `${SITE_URL}/passwords/reset?password=${password}&token=${token}`;
+  axios.interceptors.response.use(
+    response => {
+      // do someting on response
+      return response
+    },
+    error => {
+      console.log(error);
+      if(typeof error.response !== 'undefined') {
+        return Promise.reject(error.response.data); // => gives me the server resonse
+      } else {
+        return Promise.reject(error);
+      }
+    }
+  );
 
   try {
     const response = await axios.post(url);
@@ -360,9 +450,9 @@ export const resetPass = ({password, password_confirmation, token}) => async dis
       payload: 'Su contraseña ha sido cambiada con exito'
     });    
   } catch (e) {
-    /*dispatch({
-      type: AUTH_ERROR,
-      payload: e.data.message
-    }); */
+    dispatch({
+      type: RESET_PASSWORD_ERROR,
+      payload: e.message
+    });
   }
 };
