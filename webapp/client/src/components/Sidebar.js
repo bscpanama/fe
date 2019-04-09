@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
+import { changeMenuStatus } from '../actions/index.js';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -24,6 +26,7 @@ class Sidebar extends Component {
   render() {
     return (
       <div className={'side-menu '+ this.props.menustatus}>
+            <div className="close-menu" onClick={() => this.props.changeMenuStatus(this.props.menustatus) }></div>
             <div className="logo-container">
                 <img src="/assets/logo.png" alt="Logo" />
             </div>
@@ -74,4 +77,8 @@ function mapStateToProps({ auth, movements }) {
     return { auth, menustatus };
 }
 
-export default connect(mapStateToProps)(Sidebar);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ changeMenuStatus }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

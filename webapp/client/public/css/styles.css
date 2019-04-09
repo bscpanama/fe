@@ -997,3 +997,159 @@ form .input-wrapper-login.error input {
 	text-align: center;
 
 }
+
+.close-menu {
+	display: none;
+}
+
+@media(max-width: 1440px) {
+	.t-col {
+		font-size: 15px;
+	}
+}
+
+@media(max-width: 1280px) {
+	.main-container {
+	    padding: 30px 20px;
+	}
+}
+
+@media(max-width: 1024px) {
+	.logo-container {
+	    padding: 0 20px;
+	}
+
+	.navigation ul li a {
+	    display: block;
+	    padding: 30px 10px;
+	}
+}
+
+@media(max-width: 768px) {
+	.close-menu {
+		display: block;
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		width: 30px;
+		height: 30px;
+	}
+
+	.close-menu:before,
+	.close-menu:after {
+		content: '';
+		position: absolute;
+	    top: 15px;
+	    left: 0;
+		width: 100%;
+		height: 2px;
+		background-color: #fff;
+		transform-origin: center;
+	}
+
+	.close-menu:before {
+		transform: rotate(-45deg);	
+	}
+
+	.close-menu:after {
+		transform: rotate(45deg);	
+	}
+
+	.logo-container {
+	    padding: 30px 60px 0 20px;
+	}
+
+	.side-menu {
+		z-index: 10;
+		overflow: hidden;
+	}
+
+	.side-menu.open {
+		width: 0%;
+	}
+
+	.side-menu.closed {
+		width: 280px;
+	}
+
+	.main-content.open {
+		width: 100%;
+	}
+
+	.table {
+		overflow-x: scroll;
+	}
+
+	.t-header,
+	.t-row {
+	    width: 1280px;
+	}
+
+	.user-tools {
+	    padding-right: 20px;
+	}
+
+	.input-wrapper {
+		width: 50%;
+	}
+
+	.form-left .avatar-file {
+		width: 120px;
+		height: 120px;
+	}
+}
+
+@media(max-width: 480px) {
+
+	.login-box {
+	    position: static;
+	    margin-top: 20%;
+	    margin-left: auto;
+	    margin-right: auto;
+	    width: 95%;
+	    background-color: rgba(255,255,255,.9);
+	}
+
+	.login-box form {
+	    width: 80%;
+	}
+
+	.login-box form h2 {
+		font-size: 24px;
+	}
+
+	.filter-box {
+		display: block;
+	    min-width: 100%;
+	    margin-right: 0;
+	    margin-bottom: 30px;
+	}
+
+	.filter .action-button {
+	    float: none;
+	    margin-top: 20px;
+	    text-align: center;
+	}
+
+	.filter-box > .options-container {
+		z-index: 9;
+	}
+
+	.form-left,
+	.form-right {
+		width: 100%;
+	}
+
+	.form-left {
+		margin-bottom: 40px;
+	}
+
+	.input-wrapper {
+		width: 100%;
+	}
+
+	.form-actions input {
+		margin-bottom: 20px;
+	}
+
+}
