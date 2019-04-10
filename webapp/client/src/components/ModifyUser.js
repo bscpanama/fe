@@ -189,7 +189,6 @@ class ModifyUser extends Component {
 
 function mapStateToProps({ movements }) {
     const { menustatus, user, userModifyErrorMessage } = movements;
-    console.log(user );
     const initialValues = {
       id: user ? user.data.id : '',
       email: user ? user.data.attributes.email : '',

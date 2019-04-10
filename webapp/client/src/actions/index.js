@@ -100,7 +100,6 @@ export const loadInvoices = (values) => async dispatch => {
       payload: response.data
     });
   } catch (e) {
-    console.log(e);
     /*dispatch({
       type: AUTH_ERROR,
       payload: e.data.message
@@ -124,7 +123,6 @@ export const loadStats = (query) => async dispatch => {
       payload: response.data
     });
   } catch (e) {
-    console.log(e);
     /*dispatch({
       type: AUTH_ERROR,
       payload: e.data.message
@@ -175,7 +173,6 @@ export const loadUsers = (values) => async dispatch => {
       payload: response.data
     });
   } catch (e) {
-    console.log(e);
     /*dispatch({
       type: AUTH_ERROR,
       payload: e.data.message
@@ -192,7 +189,6 @@ export const changeMenuStatus = (status) => dispatch => {
 };
 
 export const createUserAccount = (values, callback) => async dispatch => {
-  console.log(values);
   const url = `${SITE_URL}/user_accounts`;
   const token = localStorage.getItem("bsctoken");
   let formData = new FormData();
@@ -202,7 +198,6 @@ export const createUserAccount = (values, callback) => async dispatch => {
       return response
     },
     error => {
-      console.log(error);
       if(typeof error.response !== 'undefined') {
         return Promise.reject(error.response.data); // => gives me the server resonse
       } else {
@@ -252,7 +247,6 @@ export const createUserAccount = (values, callback) => async dispatch => {
     });    
     callback();
   } catch (e) {
-    console.log(e);
     dispatch({
       type: CREATE_USER_ERROR,
       payload: e.message
@@ -276,7 +270,6 @@ export const loadUser = (id) => async dispatch => {
       payload: response.data
     });
   } catch (e) {
-    console.log(e);
     /*dispatch({
       type: AUTH_ERROR,
       payload: e.data.message
@@ -294,7 +287,6 @@ export const modifyUserAccount = (values, callback) => async dispatch => {
       return response
     },
     error => {
-      console.log(error);
       if(typeof error.response !== 'undefined') {
         return Promise.reject(error.response.data); // => gives me the server resonse
       } else {
@@ -315,6 +307,7 @@ export const modifyUserAccount = (values, callback) => async dispatch => {
     if(typeof  values.avatar !== 'undefined') {
       formData.append('account_attributes[avatar]',values.avatar);
     }
+    formData.append('account_attributes[id]',values.account_id);
     formData.append('account_attributes[name]',values.name);
     formData.append('account_attributes[last_name]',values.lastname);
     formData.append('account_attributes[mobile_number]',values.mobile);
@@ -336,7 +329,6 @@ export const modifyUserAccount = (values, callback) => async dispatch => {
     });
   }
 
-  console.log(values);
 };
 
 export const updateSettings = (values) => async dispatch => {
@@ -349,7 +341,6 @@ export const updateSettings = (values) => async dispatch => {
       return response
     },
     error => {
-      console.log(error);
       if(typeof error.response !== 'undefined') {
         return Promise.reject(error.response.data); // => gives me the server resonse
       } else {
@@ -403,7 +394,6 @@ export const forgot = ({email}) => async dispatch => {
       return response
     },
     error => {
-      console.log(error);
       if(typeof error.response !== 'undefined') {
         return Promise.reject(error.response.data); // => gives me the server resonse
       } else {
@@ -434,7 +424,6 @@ export const resetPass = ({password, password_confirmation, token}) => async dis
       return response
     },
     error => {
-      console.log(error);
       if(typeof error.response !== 'undefined') {
         return Promise.reject(error.response.data); // => gives me the server resonse
       } else {

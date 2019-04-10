@@ -20,6 +20,7 @@ class Estadisticas extends Component {
         this.changeYearQuery = this.changeYearQuery.bind(this);
         this.changeMonthQuery = this.changeMonthQuery.bind(this);
         this.changeWeekQuery = this.changeWeekQuery.bind(this);
+        this.translateMonths = this.translateMonths.bind(this);
     }
 
 	componentDidMount() {
@@ -53,16 +54,51 @@ class Estadisticas extends Component {
          this.props.loadStats('weekly');
     }
 
+    translateMonths(object) {
+      const transMonths = {
+        "January" : "Enero",
+        "February" : "Febrero",
+        "March" : "Marzo",
+        "April" : "Abril",
+        "May" : "Mayo",
+        "June" : "Junio",
+        "July" : "Julio",
+        "August" : "Agosto",
+        "September" : "Septiembre",
+        "October" : "Octubre",
+        "November" : "Noviembre",
+        "December" : "Diciembre"
+      };
+
+      let finalMonths = [];
+
+      object.forEach(function(element) {
+        const month = element.split(" ");
+
+        finalMonths.push(transMonths[month[0]] + " " + month[1]);
+      });
+
+      return finalMonths;
+    }
+
   render(){
+    let labelsData = [];
+    if(this.state.query === 'monthly') {
+      labelsData = this.translateMonths(Object.keys(this.props.stats));
+    } else {
+      labelsData = Object.keys(this.props.stats);
+    }
+
     const chartData = {
-            labels: Object.keys(this.props.stats),
+            labels: labelsData,
             datasets: [{
                 label: 'Facturas',
                 data: Object.values(this.props.stats),
                 backgroundColor: 'rgb(15, 128, 103)',
                 borderWidth: 0
             }]
-        };
+    };
+
     const chartOptions = {
             scales: {
                 yAxes: [{
@@ -71,7 +107,7 @@ class Estadisticas extends Component {
                     }
                 }]
             }
-        };
+    };
     return (
     	<div>
         	<Sidebar />
@@ -98,7 +134,7 @@ class Estadisticas extends Component {
 
 function mapStateToProps({ movements }) {
     const { stats } = movements;
-    console.log(Object.keys(stats));
+
     return { stats };
 }
 
