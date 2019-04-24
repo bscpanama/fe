@@ -54,6 +54,7 @@ class Movimientos extends Component {
         };
         axios.get(url, config)
           .then(function (response) {
+            console.log(response);
             window.open(response.data.pdf, '_blank');
           })
           .catch(function (error) {

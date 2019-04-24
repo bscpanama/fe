@@ -56,32 +56,6 @@ class Dashboard extends Component {
                     </div>
                     <Bar data={chartData} options={chartOptions} height={50} />
                 </div>
-                <div className="activity-table">
-                    <div className="t-header">
-                        <div className="t-col">Últimos Usuarios</div>
-                        <div className="t-col">Actividad</div>
-                        <div className="t-col">Hora</div>
-                        <div className="t-col">Estatus</div>
-                    </div>
-                    <div className="t-row">
-                        <div className="t-col">
-                            <div className="user-comp">
-                                <div className="avatar-us"></div>
-                                <div className="user-desc">
-                                    Robert Green
-                                </div>
-                            </div>
-                        </div>
-                        <div className="t-col">Assessed directly</div>
-                        <div className="t-col">12:00 AM</div>
-                        <div className="t-col"><span className="missed">Missed</span></div>
-                    </div>
-                </div>
-                <div className="notification-bar">
-                    <div className="top-head">
-                        
-                    </div>
-                </div>
             </div>
         </div>
     </div>
