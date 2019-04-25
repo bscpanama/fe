@@ -6,6 +6,7 @@ import requireAuth from './requireAuth';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import { loadUser, modifyUserAccount, SITE_URL } from '../actions/index.js';
 import { MODIFY_USER_ERROR } from '../actions/types';
@@ -36,8 +37,11 @@ class ModifyUser extends Component {
 
     this.state = {
       preview: '',
-      userModifyErrorMessage: ''
+      userModifyErrorMessage: '',
+      successMessage: '',
+      disableReset: false
     }
+    this.resetPassword = this.resetPassword.bind(this);
   }
 
 	componentDidMount() {
@@ -49,8 +53,6 @@ class ModifyUser extends Component {
 	}
 
   componentWillReceiveProps(nextProps) {
-    // This will erase any local state updates!
-    // Do not do this.
     this.setState({ userModifyErrorMessage: nextProps.userModifyErrorMessage });
   }
 
@@ -95,6 +97,24 @@ class ModifyUser extends Component {
       );
     };
   
+  resetPassword(email) {
+    console.log("reset attempt");
+    const url = `${SITE_URL}/passwords/forgot?email=${email}`;
+
+    axios.post(url)
+    .then((response) => {
+      this.setState({
+        successMessage: 'Se le ha enviado un correo al usuario para restablecer su contraseña.',
+        disableReset: true
+      }); 
+    })
+    .catch((error) => {
+      this.setState({
+        userModifyErrorMessage: 'Ha habido un problema. Por favor intente de nuevo.'
+      }); 
+    });
+
+  }
 
   render(){
     let previewImg = '';
@@ -109,7 +129,6 @@ class ModifyUser extends Component {
     let imagePreview = {
       backgroundImage: `url(${previewImg})`
     };
-
 
     const { handleSubmit, submitting, pristine, invalid } = this.props;
     return (
@@ -175,8 +194,10 @@ class ModifyUser extends Component {
                         <div className="form-actions">
                           <input type="submit" name="submit" value="Modificar usuario" disabled={submitting || invalid || pristine } />
                           <Link to="/usuarios">Cancelar</Link>
+                          { typeof this.props.user.data !== 'undefined' ? <button type="button" onClick={() => this.resetPassword(this.props.user.data.attributes.email)} disabled={this.state.disableReset}>Restablecer Contraseña</button> : '' }
                         </div>
                       </form>
+                      {this.state.successMessage != '' ? <div className="messageupdate"> { this.state.successMessage } </div> : ''}
                       {this.state.userModifyErrorMessage != '' ? <div className="error-message-form"> { this.state.userModifyErrorMessage == 'Network Error' ? 'Ha habido un error. por favor intenta otra vez o intenta más tarde.' : this.state.errorMessage } </div> : '' }
                     </div>
                 </div>

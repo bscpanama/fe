@@ -6,6 +6,7 @@ import requireAuth from './requireAuth';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
+
 import { updateSettings } from '../actions/index.js';
 import { SETTINGS_UPDATE_ERROR } from '../actions/types';
 
@@ -64,7 +65,7 @@ class Ajustes extends Component {
                                     <Field name="passwordconfirmation" type="password"
                                       component={renderField} label="Confirmar Contraseña"
                                       validate={[required, passwordsMustMatch]}
-                                    />                                  
+                                    />
                                   </div>
                                 </div>
                                 </div>

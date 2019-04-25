@@ -763,8 +763,9 @@ form .input-wrapper-login.error input {
 	text-align: center;
 }
 
-.form-actions input {
-	width: 180px;
+.form-actions input,
+.form-actions button {
+	width: 220px;
 	font-size: 16px;
 	padding: 5px 12px;
 	margin-left: 10px;
@@ -777,7 +778,8 @@ form .input-wrapper-login.error input {
 	cursor: pointer;
 }
 
-.form-actions input:disabled {
+.form-actions input:disabled,
+.form-actions button:disabled {
 	opacity: 0.6;
 	cursor: default;
 }
@@ -818,6 +820,7 @@ form .input-wrapper-login.error input {
 	text-decoration: none;
 }
 
+.messageupdate,
 .error-message-form {
     color: #e03b3b;
     text-align: center;
@@ -825,6 +828,10 @@ form .input-wrapper-login.error input {
     font-weight: bold;
     letter-spacing: 0.5px;
     font-size: 14px;
+}
+
+.messageupdate {
+	color: #0f8067;
 }
 
 /* Filter */

@@ -15,6 +15,7 @@ class Dashboard extends Component {
          this.state = {
             query: 'monthly'   
         }
+        this.translateMonths = this.translateMonths.bind(this);
     }
 
 	componentDidMount() {
@@ -24,9 +25,43 @@ class Dashboard extends Component {
         this.props.loadStats(this.state.query);
 	}
 
+    translateMonths(object) {
+      const transMonths = {
+        "January" : "Enero",
+        "February" : "Febrero",
+        "March" : "Marzo",
+        "April" : "Abril",
+        "May" : "Mayo",
+        "June" : "Junio",
+        "July" : "Julio",
+        "August" : "Agosto",
+        "September" : "Septiembre",
+        "October" : "Octubre",
+        "November" : "Noviembre",
+        "December" : "Diciembre"
+      };
+
+      let finalMonths = [];
+
+      object.forEach(function(element) {
+        const month = element.split(" ");
+
+        finalMonths.push(transMonths[month[0]] + " " + month[1]);
+      });
+
+      return finalMonths;
+    }
+
   render(){
+    let labelsData = [];
+    if(this.state.query === 'monthly') {
+      labelsData = this.translateMonths(Object.keys(this.props.stats));
+    } else {
+      labelsData = Object.keys(this.props.stats);
+    }
+
     const chartData = {
-            labels: Object.keys(this.props.stats),
+            labels: labelsData,
             datasets: [{
                 label: 'Facturas',
                 data: Object.values(this.props.stats),
