@@ -111,7 +111,7 @@ class Estadisticas extends Component {
     return (
     	<div>
         	<Sidebar />
-        	<div className="main-content">
+        	<div className={'main-content ' + this.props.menustatus}>
         		<Header/>             
         		<div className="main-container">
                     <div className="stats-wrapper">
@@ -133,9 +133,9 @@ class Estadisticas extends Component {
 }
 
 function mapStateToProps({ movements }) {
-    const { stats } = movements;
+    const { stats, menustatus } = movements;
 
-    return { stats };
+    return { stats, menustatus };
 }
 
 function mapDispatchToProps(dispatch) {
