@@ -113,7 +113,7 @@ class CreateUser extends Component {
                           <div className="form-left">
                             <Field name="avatar" type="file" component={this.FileInput}/>
                             <label htmlFor="avatar" className="avatar-file" style={imagePreview}></label>
-                            <label>Avatar</label>
+                            <label>Logo</label>
                           </div>
                           <div className="form-right">
                             <Field name="email" type="email"

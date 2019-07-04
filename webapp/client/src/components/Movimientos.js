@@ -66,6 +66,9 @@ class Movimientos extends Component {
     return (
       <div className="t-row" key={index}>
             <div className="t-col">
+                { invoice.attributes.fecha_de_emision }
+            </div>
+            <div className="t-col">
                     { invoice.attributes.cliente }
             </div>
             <div className="t-col">
@@ -73,9 +76,6 @@ class Movimientos extends Component {
             </div>
             <div className="t-col">
                 { invoice.attributes.tipo_documento == '01' ? 'Factura' : 'Documento' }
-            </div>
-            <div className="t-col">
-                { invoice.attributes.fecha_de_emision }
             </div>
             <div className="t-col">
                 <span className={ invoice.attributes.status == 'activo' ? 'active' : 'not-active' } >{ invoice.attributes.status }</span>
@@ -270,19 +270,19 @@ class Movimientos extends Component {
                             </div>
                             <div className="t-header">
                                 <div className="t-col">
-                                    Usuario
+                                    Fecha
                                 </div>
                                 <div className="t-col">
-                                    N&deg; de Factura
+                                    Compa&ntilde;ia
                                 </div>
                                 <div className="t-col">
-                                    Tipo
+                                    N&deg; de Documento
                                 </div>
                                 <div className="t-col">
-                                    Date
+                                    Tipo de Documento
                                 </div>
                                 <div className="t-col">
-                                    Estatus
+                                    N# CUFE
                                 </div>
                                 <div className="t-col">
                                     Descarga
