@@ -503,7 +503,8 @@ form .input-wrapper-login.error input {
 
 .t-col {
 	float: left;
-	width: 16.66%;
+  /*width: 16.66%;*/
+	width: 14.28%;
     max-height: 76px;
 	padding-top: 30px;
 	padding-left: 20px;
@@ -525,6 +526,21 @@ form .input-wrapper-login.error input {
 	font-weight: 500;
 	color: #0f8067;
 	text-align: center;
+}
+
+.cufe-no {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    min-height: 76px;
+    word-break: break-word;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.small-number {
+	font-size: 12px;
+    line-height: 18px;
 }
 
 .active {

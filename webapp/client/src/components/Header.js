@@ -9,6 +9,7 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
+    console.log(this.props.auth);
   }
 
   render() {

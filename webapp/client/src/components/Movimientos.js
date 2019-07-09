@@ -63,6 +63,13 @@ class Movimientos extends Component {
     }
 
     renderTable(invoice, index) {
+
+    const valor_pago = invoice.attributes.valor_pago;
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    });
     return (
       <div className="t-row" key={index}>
             <div className="t-col">
@@ -77,8 +84,11 @@ class Movimientos extends Component {
             <div className="t-col">
                 { invoice.attributes.tipo_documento == '01' ? 'Factura' : 'Documento' }
             </div>
+            <div className="t-col cufe-no">
+                <span className="small-number">{ invoice.attributes.cufe }</span>
+            </div>
             <div className="t-col">
-                <span className={ invoice.attributes.status == 'activo' ? 'active' : 'not-active' } >{ invoice.attributes.status }</span>
+                { formatter.format(valor_pago) }
             </div>
             <div className="t-col">
                 <div className="action-pdf actions" onClick={() => this.downloadPDF(invoice.id)}></div>
@@ -283,6 +293,9 @@ class Movimientos extends Component {
                                 </div>
                                 <div className="t-col">
                                     N# CUFE
+                                </div>
+                                <div className="t-col">
+                                    Valor
                                 </div>
                                 <div className="t-col">
                                     Descarga
