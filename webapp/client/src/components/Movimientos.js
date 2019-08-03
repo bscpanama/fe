@@ -243,7 +243,7 @@ class Movimientos extends Component {
         		<Header/>
         		<div className="main-container">
                     <div className="clearfix">
-                        <div className="table">
+                        <div className="table movements">
                             <div className="filter">
                                 <div className={'filter-box estatus ' + this.state.filterEstatusOpen}>
                                     <div className="current-option" onClick={()=>this.estatusFilterToggle()}>{this.state.currentestatus}</div>
