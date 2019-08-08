@@ -523,10 +523,13 @@ form .input-wrapper-login.error input {
 .table.movements .t-header .t-col:first-child,
 .table.movements .t-row .t-col:first-child,
 .table.movements .t-header .t-col:nth-child(2),
-.table.movements .t-row .t-col:nth-child(2),
+.table.movements .t-row .t-col:nth-child(2) {
+	width: 10%;
+}
+
 .table.movements .t-header .t-col:last-child,
 .table.movements .t-row .t-col:last-child {
-	width: 10%;
+	width: 14%;
 }
 
 .table.movements .t-header .t-col:nth-child(4),
@@ -559,7 +562,7 @@ form .input-wrapper-login.error input {
 
 .table.movements .t-header .t-col:nth-child(5),
 .table.movements .t-row .t-col.cufe-no {
-	width: 27.44%;
+	width: 23.44%;
 }
 
 .small-number {
