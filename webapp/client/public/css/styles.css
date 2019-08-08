@@ -520,21 +520,34 @@ form .input-wrapper-login.error input {
 	width: 20%;
 }
 
-.table.movements .t-header .t-col:first-child,
-.table.movements .t-row .t-col:first-child,
+.table.movements .t-header .t-col:first-child, .table.movements .t-row .t-col:first-child {
+    width: 9.26%;
+}
+
 .table.movements .t-header .t-col:nth-child(2),
 .table.movements .t-row .t-col:nth-child(2) {
-	width: 10%;
+	width: 12%;
+	padding-left: 10px;
+    padding-right: 10px;
 }
 
 .table.movements .t-header .t-col:last-child,
 .table.movements .t-row .t-col:last-child {
-	width: 14%;
+	width: 12%;
 }
 
 .table.movements .t-header .t-col:nth-child(4),
 .table.movements .t-row .t-col:nth-child(4) {
-	width: 13.96%;
+    width: 12.58%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.table.movements .t-header .t-col:nth-child(6),
+.table.movements .t-row .t-col:nth-child(6) {
+    width: 12.58%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 
@@ -562,7 +575,7 @@ form .input-wrapper-login.error input {
 
 .table.movements .t-header .t-col:nth-child(5),
 .table.movements .t-row .t-col.cufe-no {
-	width: 23.44%;
+	width: 27.30%;
 }
 
 .small-number {
@@ -580,8 +593,10 @@ form .input-wrapper-login.error input {
 
 .actions {
 	display: inline-block;
-    width: 30px;
-    height: 28px;
+    /*width: 30px;
+    height: 28px;*/
+    width: 20px;
+    height: 18px;
     margin: 0 10px; 
     background-repeat: no-repeat;
     background-size: contain;
