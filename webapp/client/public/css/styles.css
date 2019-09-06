@@ -1087,6 +1087,15 @@ form .input-wrapper-login.error input {
 	.main-container {
 	    padding: 30px 20px;
 	}
+
+	.t-col {
+		font-size: 12px;
+	}
+
+	.navigation ul li a {
+	    display: block;
+	    padding: 30px 30px;
+	}
 }
 
 @media(max-width: 1024px) {
