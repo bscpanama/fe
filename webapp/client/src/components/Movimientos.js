@@ -65,6 +65,19 @@ class Movimientos extends Component {
     renderTable(invoice, index) {
 
     const valor_pago = invoice.attributes.valor_pago;
+    const tipo_de_factura = [
+        'Factura de Operación Interna',
+        'Factura de Importación',
+        'Factura de Exportación',
+        'Nota de Crédito Referente a una o Varias FE',
+        'Nota de Débito Referente a una o Varias FE',
+        'Nota de Crédito Genérica',
+        'Nota de Débito Genérica',
+        'Factura de Zona Franca',
+        'Reembolso'
+    ];
+    const tiponum = parseInt(invoice.attributes.tipo_documento);
+
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -82,7 +95,9 @@ class Movimientos extends Component {
                 { invoice.attributes.numero_factura }
             </div>
             <div className="t-col">
-                { invoice.attributes.tipo_documento == '01' ? 'Factura' : 'Documento' }
+                <span title={tipo_de_factura[tiponum-1]}>
+                { invoice.attributes.tipo_documento }
+                </span>
             </div>
             <div className="t-col cufe-no">
                 <span className="small-number">{ invoice.attributes.cufe }</span>
