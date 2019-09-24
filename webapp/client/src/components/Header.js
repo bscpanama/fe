@@ -8,8 +8,7 @@ import { changeMenuStatus, SITE_URL } from '../actions/index.js';
 class Header extends Component {
   constructor(props) {
     super(props);
-
-    console.log(this.props.auth);
+    
   }
 
   render() {

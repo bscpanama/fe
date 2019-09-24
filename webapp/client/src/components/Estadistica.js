@@ -73,9 +73,11 @@ class Estadisticas extends Component {
       let finalMonths = [];
 
       object.forEach(function(element) {
-        const month = element.split(" ");
+        if(element !== "") {
+          const month = element.split(" ");
 
-        finalMonths.push(transMonths[month[0]] + " " + month[1]);
+          finalMonths.push(transMonths[month[0]] + " " + month[1]);
+        }
       });
 
       return finalMonths;
