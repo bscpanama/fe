@@ -1,0 +1,20 @@
+run.config:
+  engine: nodejs
+  fs_watch: true
+  extra_steps:
+    - npm install
+  extra_packages:
+    - nginx
+    - nodejs
+deploy.config:
+  extra_steps:
+    - npm run build
+web.client:
+  routes:
+    - /
+  start:
+    client: npm start
+    nginx: nginx -c /app/client.conf
+  writable_dirs:
+    - /config
+
