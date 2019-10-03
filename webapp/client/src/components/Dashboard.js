@@ -91,7 +91,7 @@ class Dashboard extends Component {
                     <div className="stats-options">
                         <div className="title">Estadísticas Mensuales</div>
                     </div>
-                    <Bar data={chartData} options={chartOptions} height={50} />
+                    <Bar data={chartData} options={chartOptions}  />
                 </div>
             </div>
         </div>

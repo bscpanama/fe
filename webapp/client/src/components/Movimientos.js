@@ -66,14 +66,14 @@ class Movimientos extends Component {
 
     const valor_pago = invoice.attributes.valor_pago;
     const tipo_de_factura = [
-        'Factura de Operación Interna',
-        'Factura de Importación',
-        'Factura de Exportación',
-        'Nota de Crédito Referente a una o Varias FE',
-        'Nota de Débito Referente a una o Varias FE',
-        'Nota de Crédito Genérica',
-        'Nota de Débito Genérica',
-        'Factura de Zona Franca',
+        'Factura',
+        'Factura',
+        'Factura',
+        'Nota Crédito',
+        'Nota Débito',
+        'Nota Crédito',
+        'Nota Débito',
+        'Factura',
         'Reembolso'
     ];
     const tiponum = parseInt(invoice.attributes.tipo_documento);
