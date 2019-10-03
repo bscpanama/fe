@@ -96,7 +96,7 @@ class Movimientos extends Component {
             </div>
             <div className="t-col">
                 <span title={tipo_de_factura[tiponum-1]}>
-                { invoice.attributes.tipo_documento }
+                {tipo_de_factura[tiponum-1]}
                 </span>
             </div>
             <div className="t-col cufe-no">
@@ -301,7 +301,7 @@ class Movimientos extends Component {
                                     Compa&ntilde;ia
                                 </div>
                                 <div className="t-col">
-                                    N&deg; de Documento
+                                    Documento
                                 </div>
                                 <div className="t-col">
                                     Tipo de Documento
