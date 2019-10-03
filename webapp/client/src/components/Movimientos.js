@@ -301,10 +301,10 @@ class Movimientos extends Component {
                                     Compa&ntilde;ia
                                 </div>
                                 <div className="t-col">
-                                    Documento
+                                    N&deg; de Documento
                                 </div>
                                 <div className="t-col">
-                                    Tipo de Documento
+                                    Documento
                                 </div>
                                 <div className="t-col">
                                     N# CUFE
